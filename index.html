@@ -271,6 +271,28 @@
   }
   .foot .fbrand { font-weight: 800; color: var(--ink); font-size: 1.02rem; }
   .foot a:hover { color: var(--accent); }
+
+  /* Live audience pulse (PRIDE-1) */
+  .pulse-badge { display: inline-flex; align-items: center; gap: 9px; margin-top: 22px;
+    padding: 9px 16px; border-radius: 999px; font-size: 0.88rem; color: #f3d9b8;
+    background: rgba(246,189,133,0.08); border: 1px solid rgba(246,189,133,0.28); }
+  .pulse-badge[hidden] { display: none; }
+  .pulse-badge strong { color: #f6bd85; font-weight: 800; }
+  .pulse-dot { width: 9px; height: 9px; border-radius: 50%; background: #7ee0a3; flex: none;
+    box-shadow: 0 0 10px rgba(126,224,163,0.9); animation: pulseDot 2.2s ease-in-out infinite; }
+  @keyframes pulseDot { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.35); opacity: 0.65; } }
+
+  /* Pride band (PRIDE-1) */
+  .pride-band { background: linear-gradient(160deg, #140d08 0%, #1d1226 55%, #291a30 100%); color: #f5e9d6; }
+  .pride-band .eyebrow { color: #f6bd85; }
+  .pride-band h2 { color: #fdf6ea; }
+  .pride-band .lead { color: #e8d5b8; }
+  .pride-band .pillar { background: rgba(246,189,133,0.06); border: 1px solid rgba(246,189,133,0.22); box-shadow: none; }
+  .pride-band .pillar:hover { box-shadow: 0 18px 40px rgba(0,0,0,0.35); }
+  .pride-band .pillar h3 { color: #f6bd85; }
+  .pride-band .pillar p { color: #e8d5b8; }
+  .pride-band .pillar .num { background: rgba(246,189,133,0.14); color: #f6bd85; }
+  @media (prefers-reduced-motion: reduce) { .pulse-dot { animation: none; } }
 </style>
 </head>
 <body>
@@ -351,6 +373,11 @@
         <a class="btn btn-ghost" href="#capabilities">Explore the capabilities</a>
       </div>
       <p class="note">Live in testing &middot; launching first in South Africa &middot; <a href="mailto:hello@luqi-ai.com?subject=Waitlist%20%E2%80%94%20Luqi-ai&body=Hi%20Luqi-ai%20team%2C%20please%20add%20me%20to%20the%20launch%20waitlist.">join the waitlist</a></p>
+      <p class="pulse-badge" id="pulse-badge" hidden>
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <strong id="pulse-now">0</strong>&nbsp;minds exploring Luqi-ai right now
+        &middot;&nbsp;<span id="pulse-total">0</span>&nbsp;honest visits counted
+      </p>
       <div class="modes-strip" aria-label="Platform modes">
         <span class="mchip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Scam Shield</span>
         <span class="mchip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg>Everyday Services</span>
@@ -442,6 +469,45 @@
           <h3>It shaped a nation</h3>
           <p>Ubuntu carried South Africa from the TRC to the Constitutional Court&rsquo;s 1995 Makwanyane
              judgment — now it carries a platform. Read it in the archive.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pride: knowledge without limits (PRIDE-1) -->
+  <section class="section pride-band" id="pride">
+    <div class="wrap reveal">
+      <span class="eyebrow">Pride of Africa</span>
+      <h2>Knowledge without limits. Excellence without apology.</h2>
+      <p class="lead">For too long, serious knowledge was gated by money, geography and language.
+         Luqi-ai is Africa&rsquo;s answer: an engine built on African soil, on a deliberate march toward
+         the highest level of intelligence — aimed squarely at the standard of the world&rsquo;s advanced
+         economies, and answering to African realities first. No topic fenced off. No question too big.
+         No permission asked.</p>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="num">&#8734;</div>
+          <h3>Limitless curiosity</h3>
+          <p>From quantum physics to UIF forms, from African history to starting a business — if you can
+             ask it, Luqi-ai works it through with you, in plain language, with sources you can check.</p>
+        </div>
+        <div class="pillar">
+          <div class="num">&#9733;</div>
+          <h3>Black excellence, engineered</h3>
+          <p>Built by African hands to stand level with the world&rsquo;s best — not as a copy, but as a
+             backbone: scam protection, money skills, adaptive tutoring and deep research in one engine.</p>
+        </div>
+        <div class="pillar">
+          <div class="num">&#10003;</div>
+          <h3>Honesty is the intelligence</h3>
+          <p>Real intelligence knows its limits: when Luqi-ai cannot verify something, it says
+             UNVERIFIED and shows its working. Pride without truth is just marketing — we don&rsquo;t do that.</p>
+        </div>
+        <div class="pillar">
+          <div class="num">&#9673;</div>
+          <h3>Counted, not tracked</h3>
+          <p>The live counter on this page is real — anonymous, cookie-free, no IP addresses, no
+             fingerprints, served by our own engine. Even our pride respects your privacy.</p>
         </div>
       </div>
     </div>
@@ -654,6 +720,50 @@
     });
   }, { threshold: 0.12 });
   document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+  /* Live audience pulse — REAL counter served by our own engine (PRIDE-1).
+     Anonymous: rotating session id in sessionStorage only. No cookies, no IP
+     logging, no fingerprinting. Fail-closed: if the engine is unreachable the
+     badge stays hidden — we never show an invented number. */
+  (function () {
+    var ENGINE = "https://luqi-ai-production.up.railway.app";
+    function getSid() {
+      try {
+        var s = sessionStorage.getItem("luqi_pulse_sid");
+        if (!s) {
+          s = (window.crypto && crypto.randomUUID)
+            ? crypto.randomUUID().replace(/-/g, "")
+            : String(Date.now()) + Math.random().toString(36).slice(2, 18);
+          sessionStorage.setItem("luqi_pulse_sid", s);
+        }
+        return s;
+      } catch (e) { return null; }
+    }
+    function show(d) {
+      if (!d || typeof d.watching_now !== "number") return;
+      var badge = document.getElementById("pulse-badge");
+      document.getElementById("pulse-now").textContent = d.watching_now;
+      document.getElementById("pulse-total").textContent = d.total_views;
+      badge.hidden = false;
+    }
+    function beat() {
+      var sid = getSid();
+      if (!sid) return;
+      fetch(ENGINE + "/v1/stats/heartbeat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sid: sid })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("pulse unavailable");
+        return r.json();
+      }).then(show).catch(function () { /* stay hidden: honesty over optics */ });
+    }
+    beat();
+    setInterval(beat, 45000);
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) beat();
+    });
+  })();
 </script>
 </body>
 </html>
