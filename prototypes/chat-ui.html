@@ -115,5 +115,1139 @@
   .media-banner{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
                 box-shadow:var(--shadow);background:var(--surface-alt);margin-bottom:14px;display:none}
   .media-banner.show{display:block}
-  .media-banner video,.medi</parameter>
-</invoke>
+  .media-banner video,.media-banner img{width:100%;height:200px;object-fit:cover;display:block}
+  .media-banner .cap{position:absolute;left:12px;bottom:10px;background:rgba(43,38,32,.72);color:#faf7f2;
+                     font-size:11.5px;padding:4px 10px;border-radius:999px}
+  .cap-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .cap-card{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 13px;
+            cursor:pointer;transition:all .15s;box-shadow:var(--shadow)}
+  .cap-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .cap-card .ic{font-size:19px}
+  .cap-card .t{font-family:Georgia,serif;font-weight:700;font-size:13.5px;margin:6px 0 3px}
+  .cap-card .d{font-size:11.5px;color:var(--muted);line-height:1.4}
+  .cap-card .go{font-size:11px;color:var(--accent);font-weight:600;margin-top:7px}
+  form.composer{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+                box-shadow:var(--shadow);padding:12px}
+  .composer textarea{width:100%;border:none;outline:none;resize:vertical;min-height:52px;max-height:180px;
+                     font:inherit;color:var(--ink);background:transparent}
+  .composer-row{display:flex;align-items:center;gap:10px;margin-top:8px}
+  .hint-field{display:none;margin-top:9px}
+  .hint-field.show{display:block}
+  .hint-field input{width:100%;border:1px dashed var(--olive);border-radius:8px;padding:7px 10px;
+                    font-size:12.5px;background:var(--olive-soft);color:var(--ink);outline:none}
+  .hint-field label{font-size:11px;color:var(--olive-deep);font-weight:600}
+  .send{margin-left:auto}
+  /* ── right rail ─────────────────────────────────────── */
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+        box-shadow:var(--shadow);padding:15px 16px;margin-bottom:16px}
+  .card h3{font-size:14.5px;margin-bottom:9px}
+  .card p,.card li{font-size:12.8px;color:var(--soft)}
+  .card .empty{font-size:12.5px;color:var(--muted);font-style:italic}
+  .risk-chip{display:inline-block;padding:3px 12px;border-radius:999px;color:#fff;font-weight:700;
+             font-size:12px;text-transform:capitalize}
+  .big-score{font-family:Georgia,serif;font-size:26px;font-weight:700}
+  pre.contract{max-height:300px;overflow:auto;background:var(--surface-alt);border-radius:9px;
+               padding:10px;font-size:11px;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+  .foot{max-width:1180px;margin:0 auto;padding:0 20px 40px;font-size:11.5px;color:var(--muted);text-align:center}
+  .thinking{font-size:13px;color:var(--muted);font-style:italic;padding:8px 0}
+  /* ── companion mode ─────────────────────────────────── */
+  .mode-btn svg{vertical-align:-1.5px;margin-right:4px}
+  .gate-card{max-width:480px;margin:30px auto}
+  .gate-card input{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 12px;
+                   font:inherit;font-size:13.5px;background:var(--bg);color:var(--ink);outline:none;margin-top:8px}
+  .gate-card input:focus{border-color:var(--accent)}
+  .gate-toggle{background:none;border:none;color:var(--accent);font-size:12.5px;cursor:pointer;
+               text-decoration:underline;padding:0}
+  .pii-note{margin-top:12px;font-size:11.5px;color:var(--muted);border:1px dashed var(--line);
+            border-radius:8px;padding:7px 10px;background:var(--bg)}
+  .auth-err{margin-top:9px;font-size:12.5px;color:var(--r-critical)}
+  .cp-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .logout-btn{background:none;border:1px solid var(--line);border-radius:8px;padding:4px 10px;
+              font-size:11.5px;color:var(--soft);cursor:pointer}
+  .logout-btn:hover{border-color:var(--r-critical);color:var(--r-critical)}
+  .cp-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+  .cp-pill{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 13px;
+           font-size:12px;color:var(--soft);cursor:pointer;text-transform:capitalize}
+  .cp-pill:hover{border-color:var(--accent);color:var(--accent)}
+  .cp-pill.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .cp-topic{display:none;margin-bottom:10px}
+  .cp-topic.show{display:block}
+  .cp-topic label{font-size:11px;color:var(--olive-deep);font-weight:600}
+  .cp-topic input{width:100%;border:1px dashed var(--olive);border-radius:8px;padding:7px 10px;
+                  font-size:12.5px;background:var(--olive-soft);color:var(--ink);outline:none}
+  .cp-speaker{font-family:Georgia,serif;font-size:12.5px;font-weight:700;color:var(--accent);margin-bottom:4px}
+  .relbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:11px;padding-top:9px;
+          border-top:1px dashed var(--line);font-size:11.5px;color:var(--muted)}
+  .relbar strong{color:var(--soft);font-weight:600}
+  .relchip{border:1px solid var(--line);border-radius:999px;padding:1px 8px;background:var(--bg);font-size:10.5px}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="brand-mark">L</div>
+    <div class="brand-name">Luqi-ai<small id="engine-mode">engine: checking…</small></div>
+  </div>
+  <span class="pill" id="engine-pill">engine: checking…</span>
+  <nav class="modes" id="modes">
+    <button class="mode-btn active" data-mode="standard">Standard</button>
+    <button class="mode-btn" data-mode="research">Deep Research</button>
+    <button class="mode-btn" data-mode="professor">The Professor</button>
+    <button class="mode-btn" data-mode="scam">Scam Shield</button>
+    <button class="mode-btn" data-mode="history">African History</button>
+    <button class="mode-btn" data-mode="services">Everyday Services</button>
+    <button class="mode-btn" data-mode="companion"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Companion</button>
+    <button class="mode-btn" data-mode="av">AV Consult</button>
+  </nav>
+  <select class="langsel" id="langsel" title="Answer generation in African languages activates when the engine's language models are enabled at launch.">
+    <option value="en" selected>English (ZA)</option>
+    <option value="zu">isiZulu</option>
+    <option value="xh">isiXhosa</option>
+    <option value="st">Sesotho</option>
+    <option value="tn">Setswana</option>
+    <option value="sw">Kiswahili</option>
+  </select>
+</header>
+
+<div class="ubuntu">
+  <em>“Umuntu ngumuntu ngabantu”</em> — I am because we are.
+  Every factual answer carries its sources, or is marked <strong>UNVERIFIED</strong>. No confident guesses, no dead ends.
+</div>
+
+<main>
+  <section class="chat-col">
+    <div id="stream"></div>
+
+    <!-- ── UI-4 showcase: media banner + capability demo cards.
+         Media honesty: the banner stays hidden unless a real asset actually
+         loads (video -> hero image -> hidden). No broken frames, ever. ── -->
+    <div class="showcase">
+      <div class="media-banner" id="media-banner">
+        <video id="media-video" autoplay loop muted playsinline poster="/assets/hero-africa-rising.png">
+          <source src="/assets/africa-rising-hero.mp4" type="video/mp4">
+        </video>
+        <span class="cap">Luqi-ai — built for African realities</span>
+      </div>
+      <div class="cap-cards">
+        <div class="cap-card" data-mode="scam" data-fill="Join my WhatsApp crypto investment group! Invest R500 and get R5000 back in 7 days. Guaranteed returns, risk-free. Limited spots today — our automated trading bot never loses.">
+          <div class="ic">🛡️</div><div class="t">Scam Shield</div>
+          <div class="d">Paste any offer. A versioned fraud catalogue plus promise-anatomy signals answer.</div>
+          <div class="go">Run a live check →</div>
+        </div>
+        <div class="cap-card" data-mode="services" data-fill="How do I apply for the SRD grant from SASSA?">
+          <div class="ic">🏛️</div><div class="t">SASSA · SARS · UIF</div>
+          <div class="d">Step-by-step guides built from official sources only.</div>
+          <div class="go">Get the SRD steps →</div>
+        </div>
+        <div class="cap-card" data-mode="standard" data-fill="What is happening in South Africa today?">
+          <div class="ic">🌍</div><div class="t">World Pulse</div>
+          <div class="d">Live headlines with sources — or an honest unavailable state.</div>
+          <div class="go">Ask the pulse →</div>
+        </div>
+        <div class="cap-card" data-mode="history" data-fill="Great Zimbabwe">
+          <div class="ic">🏺</div><div class="t">African History</div>
+          <div class="d">A curated archive — every entry carries its sources.</div>
+          <div class="go">Explore the archive →</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chips">
+      <button class="chip" data-mode="scam" data-fill="Join my WhatsApp crypto investment group! Invest R500 and get R5000 back in 7 days. Guaranteed returns, risk-free. Limited spots today — our automated trading bot never loses.">🛡️ Check an investment offer</button>
+      <button class="chip" data-mode="research" data-fill="What does research say about the health effects of moringa?">🔎 Research a topic</button>
+      <button class="chip" data-mode="history" data-fill="Great Zimbabwe">🏺 Explore African history</button>
+      <button class="chip" data-mode="services" data-fill="SRD grant">🏛️ SASSA / SARS / UIF help</button>
+      <button class="chip" data-mode="standard" data-fill="Explain compound interest simply">💡 Ask anything</button>
+    </div>
+
+    <form class="composer" id="composer">
+      <textarea id="input" placeholder="Ask Luqi-ai anything — or paste a suspicious message to check it…"></textarea>
+      <div class="hint-field" id="hint-field">
+        <label for="hint">context_hint (optional) — synonyms, the local or technical name, a document title, a spelling variant. Routed straight back into retrieval (Knowledge-Gap Policy v1.0.0).</label>
+        <input id="hint" type="text" maxlength="1000" placeholder="e.g. the Setswana name, the clinic code, the form number…">
+      </div>
+      <div class="composer-row">
+        <span class="kv" id="mode-note">Mode: Standard — zero-cost front door (POST /v1/hybrid/process)</span>
+        <button type="submit" class="action send">Send</button>
+      </div>
+    </form>
+
+    <!-- ── Companion mode (auth-gated; shown only when the Companion chip is active) ── -->
+    <div id="companion-wrap" style="display:none">
+      <div class="card gate-card" id="cp-gate" style="display:none">
+        <h3>Companion — your Luqi-ai account</h3>
+        <p>Your Companion remembers your conversations, builds a streak when you show up, and grows trust over time. Sign in to continue — or create an account in one step.</p>
+        <input id="cp-email" type="email" autocomplete="email" placeholder="you@example.com">
+        <input id="cp-pass" type="password" autocomplete="current-password" placeholder="Password">
+        <div style="display:flex;align-items:center;gap:14px;margin-top:12px;flex-wrap:wrap">
+          <button class="action" id="cp-auth-btn" type="button">Sign in</button>
+          <button class="gate-toggle" id="cp-auth-toggle" type="button">Create an account instead</button>
+        </div>
+        <p class="pii-note">🔒 Never paste ID numbers, banking PINs or passwords here. The engine scrubs personal information server-side — but don't type it in the first place.</p>
+        <p class="auth-err" id="cp-auth-err" role="alert"></p>
+      </div>
+      <div id="cp-chat" style="display:none">
+        <div class="cp-top">
+          <span class="kv">Signed in as <strong id="cp-email-shown"></strong></span>
+          <button class="logout-btn" id="cp-logout" type="button">Log out</button>
+        </div>
+        <div class="cp-pills" id="cp-pills">
+          <button class="cp-pill active" data-cpmode="chat" type="button">chat</button>
+          <button class="cp-pill" data-cpmode="mentor" type="button">mentor</button>
+          <button class="cp-pill" data-cpmode="coach" type="button">coach</button>
+          <button class="cp-pill" data-cpmode="quiz" type="button">quiz</button>
+          <button class="cp-pill" data-cpmode="explain" type="button">explain</button>
+          <button class="cp-pill" data-cpmode="listen" type="button">listen</button>
+        </div>
+        <div class="cp-topic" id="cp-topic-row">
+          <label for="cp-topic">topic (optional, ≤120 chars) — what this session is about</label>
+          <input id="cp-topic" type="text" maxlength="120" placeholder="e.g. fractions, writing a CV, the 1995 final…">
+        </div>
+        <div id="cp-thread"></div>
+        <form class="composer" id="cp-composer">
+          <textarea id="cp-input" maxlength="4000" placeholder="Talk to your Companion… (Enter sends, Shift+Enter newline)"></textarea>
+          <div class="composer-row">
+            <span class="kv" id="cp-note">companion mode: chat · POST /v1/companion/chat</span>
+            <button type="submit" class="action send">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ── AV Consult mode (structured form; shown only when the AV chip is active) ── -->
+    <div id="av-wrap" style="display:none">
+      <div class="card">
+        <h3>AV Consult — room acoustics &amp; honest cost estimate</h3>
+        <p>Sabine RT60 acoustics, cabling blueprint and a ZAR landing-cost <strong>estimate</strong> — with every assumption disclosed and the exchange rate labelled by source. Never a fake "live quote".</p>
+        <form id="av-form">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+            <label class="kv">L (m) <input id="av-l" type="number" step="0.1" min="0.6" max="100" value="7.5" required style="width:70px"></label>
+            <label class="kv">W (m) <input id="av-w" type="number" step="0.1" min="0.6" max="100" value="5.0" required style="width:70px"></label>
+            <label class="kv">H (m) <input id="av-h" type="number" step="0.1" min="2.0" max="20" value="3.0" required style="width:70px"></label>
+            <label class="kv">Walls
+              <select id="av-wall">
+                <option value="glass" selected>glass</option>
+                <option value="concrete">concrete</option>
+                <option value="drywall">drywall</option>
+                <option value="acoustic_paneling">acoustic paneling</option>
+              </select>
+            </label>
+            <label class="kv">USD→ZAR (optional) <input id="av-fx" type="number" step="0.01" min="1" max="100" placeholder="live/auto" style="width:90px"></label>
+            <label class="kv">4K streams <input id="av-streams" type="range" min="0" max="16" value="4" oninput="document.getElementById('av-streams-n').textContent=this.value"> <span id="av-streams-n">4</span></label>
+            <label class="kv">Protocol
+              <select id="av-proto">
+                <option value="jpeg_xs_compressed" selected>JPEG XS (compressed)</option>
+                <option value="sdvoe_uncompressed">SDVoE (uncompressed 4K60)</option>
+                <option value="h264_h265_streaming">H.264/H.265 (VC streams)</option>
+              </select>
+            </label>
+          </div>
+          <div class="composer-row" style="margin-top:10px">
+            <span class="kv" id="av-note">POST /v1/av/consult · deterministic, no account needed</span>
+            <button type="submit" class="action send">Consult</button>
+          </div>
+        </form>
+        <div id="av-result" style="margin-top:12px"></div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="rail">
+    <div class="card">
+      <h3>Engine status</h3>
+      <p id="engine-detail">Checking <span class="kv" id="engine-url"></span> …</p>
+    </div>
+
+    <div class="card" id="risk-card">
+      <h3>🛡️ Scam Shield — risk matrix</h3>
+      <p class="empty" id="risk-empty">Run Scam Shield on a message and the real risk band, score, matched patterns and the questions to ask appear here — straight from <span class="kv">POST /v1/finlit/scam-check</span>.</p>
+      <div id="risk-body" style="display:none">
+        <span class="risk-chip" id="risk-chip">—</span><div style="margin:10px 0 4px"><span class="big-score" id="risk-score">0</span> <span class="kv">severity score</span></div>
+        <p id="risk-patterns" style="margin-top:8px"></p>
+        <div class="panel-h">Questions to ask them</div>
+        <ul class="tight" id="risk-questions"></ul>
+        <div class="panel-h">Golden rules</div>
+        <ul class="tight" id="risk-rules"></ul>
+        <p class="kv" id="risk-report" style="margin-top:8px"></p>
+      </div>
+    </div>
+
+    <div class="card" id="sources-card">
+      <h3>🔎 Sources &amp; verification</h3>
+      <p class="empty" id="sources-empty">Run Deep Research and the retrieved sources appear here with resolvable links — or the answer is labelled UNVERIFIED. The label is the guarantee, not the omission.</p>
+      <div id="sources-body" style="display:none">
+        <div class="verif-banner" id="sources-verif"></div>
+        <p class="kv" id="sources-meta"></p>
+        <div id="sources-list" style="margin-top:8px"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Pattern catalogue</h3>
+      <p id="catalogue-body">Scam Shield checks against a versioned fraud catalogue plus deterministic promise-anatomy signals. The live version loads here when the engine is reachable — nothing is hardcoded.</p>
+      <p style="margin-top:8px">Community reporting — live “reported near you” counts — is on the roadmap. <strong>No number is shown until real data exists.</strong></p>
+    </div>
+
+    <div class="card" id="feedback-card">
+      <h3>🧪 Tester feedback</h3>
+      <p class="empty" id="fb-note">Testing Luqi-ai? Tell us what happened — praise, confusion, bugs, ideas. Your report goes straight to the engine's feedback loop (<span class="kv">POST /v1/feedback/submit</span>, PII-scrubbed) and shapes what gets built next. Sign in via <strong>Companion</strong> mode first.</p>
+      <div id="fb-form" style="display:none">
+        <label class="kv" for="fb-rating">Overall experience</label>
+        <select id="fb-rating" style="width:100%;margin:4px 0 8px">
+          <option value="5">5 — excellent</option>
+          <option value="4">4 — good</option>
+          <option value="3" selected>3 — mixed</option>
+          <option value="2">2 — poor</option>
+          <option value="1">1 — broken</option>
+        </select>
+        <textarea id="fb-comment" maxlength="480" placeholder="What were you trying to do? What happened? What did you expect?" style="width:100%;min-height:70px"></textarea>
+        <button class="action" id="fb-send" type="button" style="margin-top:8px">Send feedback</button>
+        <p class="kv" id="fb-status" style="margin-top:6px"></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Response contract</h3>
+      <p class="empty" id="contract-empty">The raw JSON of the last engine response appears here — nothing hidden.</p>
+      <pre class="contract" id="contract" style="display:none"></pre>
+    </div>
+  </aside>
+</main>
+
+<div class="foot">
+  Luqi-ai chat console v1.5.0 · wired to the African History Archive (GET /v1/history), the Everyday Services Pack (GET /v1/services), the Companion engine (POST /v1/companion/chat, Bearer auth) and AV Consult (POST /v1/av/consult + real PDF via POST /v1/av/proposal) · renders real engine responses, labelled recorded examples, or honest offline states — never simulated data ·
+  design tokens shared with luqi-ai.com · educational information only, not financial advice
+</div>
+<script>
+"use strict";
+/* ── configuration ─────────────────────────────────────── */
+const ENGINE_BASE = (new URLSearchParams(location.search).get("engine")
+  || localStorage.getItem("luqi_engine")
+  || "https://engine.luqi-ai.com").replace(/\/+$/, "");
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* Recorded from the REAL engine on 2026-09-21 (POST /v1/finlit/scam-check,
+   canonical founder test input). Rendered through the same renderer as live
+   responses — one code path, no fake shapes. */
+const EXAMPLE_SCAM = {
+ "risk_level": "critical",
+ "risk_score": 21,
+ "verdict": "SCAM ALERT: this matches multiple severe fraud patterns. Stop all contact, send nothing, and report it.",
+ "matched_patterns": [
+  {
+   "pattern_id": "pig-butchering-crypto",
+   "name": "Pig-butchering / fake crypto platform",
+   "category": "investment_fraud",
+   "matched_indicators": [
+    "trading bot",
+    "automated trading"
+   ],
+   "weight": 6,
+   "description": "A fake trading platform shows your 'balance' growing, but every withdrawal attempt demands another deposit — 'tax', 'fees', 'unfreeze'. The balance is fiction; only your deposits are real.",
+   "sa_example": "Victims 'invest' R5 000, watch the app show R40 000, then pay R8 000 'tax' to withdraw — and are told to pay again. This pattern is exploding in SA.",
+   "advice": "If you must PAY to withdraw YOUR money, it is a scam — full stop. Legitimate platforms deduct fees from the balance. Report to the FSCA and SAPS immediately; do not send 'one last payment'."
+  },
+  {
+   "pattern_id": "ponzi-guaranteed-returns",
+   "name": "Ponzi / pyramid scheme",
+   "category": "investment_fraud",
+   "matched_indicators": [
+    "guaranteed returns"
+   ],
+   "weight": 5,
+   "description": "Promises of high, fixed, or 'guaranteed' returns — especially monthly percentages or referral-based earnings. Paying old investors with new investors' money.",
+   "sa_example": "Mirror Trading International (MTI) and Africrypt — two of the largest crypto Ponzi collapses in history — were South African. Both promised steady monthly returns.",
+   "advice": "No legitimate investment guarantees returns. If returns depend on recruiting others, it is a pyramid scheme — illegal under the Consumer Protection Act. Check FSCA registration before investing a single rand."
+  },
+  {
+   "pattern_id": "whatsapp-investment-group",
+   "name": "WhatsApp / Telegram 'investment' groups",
+   "category": "investment_fraud",
+   "matched_indicators": [
+    "whatsapp group",
+    "investment group"
+   ],
+   "weight": 5,
+   "description": "Group chats full of fake members posting 'profit screenshots' and 'withdrawal proofs', run by a 'mentor' or 'account manager' who takes deposits and vanishes.",
+   "sa_example": "'Forex mentor' groups targeting stokvel members and church groups with screenshots of luxury cars and fake withdrawal receipts.",
+   "advice": "Screenshots prove nothing — they are trivial to fake. Real financial advisors are FSCA-licensed and do not recruit in WhatsApp groups. Never hand money to an 'account manager' found on social media."
+  },
+  {
+   "pattern_id": "money-multiplier-promise",
+   "name": "Money-multiplier promise (deterministic signal)",
+   "category": "investment_fraud",
+   "matched_indicators": [
+    "amounts R500 -> R5000 (10.0x) with urgency + promise wording"
+   ],
+   "weight": 5,
+   "description": "The text promises money multiplying fast: at least a 2x jump between two rand amounts, with urgency and promise wording. No legitimate investment multiplies money on a deadline.",
+   "sa_example": "Invest R1000 today, get R5000 by tomorrow via a crypto bot.",
+   "advice": "No regulator-licensed product can promise this. Verify any provider at fsca.co.za before paying anything; guaranteed fast multiplication is the oldest fraud signal there is."
+  }
+ ],
+ "questions_to_ask": [
+  "Can they give an FSCA licence number you can check yourself at fsca.co.za?",
+  "If the returns are guaranteed, why do they need YOUR money?",
+  "Can you withdraw everything today - in writing?"
+ ],
+ "golden_rules": [
+  "Guaranteed returns do not exist.",
+  "Never share OTPs, PINs, or passwords.",
+  "Never pay to receive money.",
+  "Urgency is a weapon — pause 48 hours.",
+  "Verify independently (FSCA for investments, NCR for loans)."
+ ],
+ "report_line": "Report suspected fraud: FSCA (0800 110 443), SAFPS (011 867 2234), your bank's fraud line, and SAPS (10111).",
+ "disclaimer": "Educational information only — this is NOT financial advice. Consult an FSCA-licensed financial advisor before making financial decisions."
+};
+
+const MODE_NOTES = {
+  standard: "Mode: Standard — zero-cost front door (POST /v1/hybrid/process)",
+  research: "Mode: Deep Research — scholarly retrieval, citations or UNVERIFIED (POST /v1/deep-research)",
+  professor: "Mode: The Professor — adaptive teaching; requires a Luqi-ai account at launch",
+  scam: "Mode: Scam Shield — pattern catalogue + promise-anatomy signals (POST /v1/finlit/scam-check)",
+  history: "Mode: African History — curated archive; every entry carries verifiable sources (GET /v1/history/entries)",
+  services: "Mode: Everyday Services — SASSA/SRD/SARS/UIF/NSFAS guides, official sources only (GET /v1/services/entries)",
+  companion: "Mode: Companion — relational chat with memory, streaks and trust (POST /v1/companion/chat · Bearer auth)",
+  av: "Mode: AV Consult — Sabine acoustics + honest ZAR estimate, assumptions disclosed (POST /v1/av/consult)"
+};
+let mode = "standard";
+let ARCHIVE_META = null;  /* filled from GET /v1/history when the engine is reachable */
+let SERVICES_META = null; /* filled from GET /v1/services when the engine is reachable */
+
+/* ── mode switching ────────────────────────────────────── */
+function setMode(m){
+  mode = m;
+  document.querySelectorAll(".mode-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === m));
+  $("#mode-note").textContent = MODE_NOTES[m];
+  $("#hint-field").classList.toggle("show", m === "research");
+  const cp = m === "companion";
+  const av = m === "av";
+  $("#stream").style.display = (cp || av) ? "none" : "";
+  document.querySelector(".chips").style.display = (cp || av) ? "none" : "";
+  $("#composer").style.display = (cp || av) ? "none" : "";
+  $("#companion-wrap").style.display = cp ? "" : "none";
+  $("#av-wrap").style.display = av ? "" : "none";
+  if (cp) cpEnter();
+  if (m === "professor") professorCard();
+}
+document.querySelectorAll(".mode-btn").forEach(b => b.addEventListener("click", () => setMode(b.dataset.mode)));
+document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => {
+  setMode(c.dataset.mode); $("#input").value = c.dataset.fill; $("#input").focus();
+}));
+
+/* ── UI-4 showcase wiring ──────────────────────────────── */
+document.querySelectorAll(".cap-card").forEach(c => c.addEventListener("click", () => {
+  setMode(c.dataset.mode); $("#input").value = c.dataset.fill; $("#input").focus();
+}));
+/* Media banner honesty chain: real video -> hero image -> stay hidden.
+   The banner never renders a broken frame for an asset that is not uploaded yet. */
+(function(){
+  const banner = $("#media-banner"), vid = $("#media-video");
+  vid.addEventListener("loadeddata", () => banner.classList.add("show"));
+  const src = vid.querySelector("source");
+  (src || vid).addEventListener("error", () => {
+    const img = new Image();
+    img.alt = "Sunrise over the savanna rising toward the Johannesburg skyline";
+    img.onload = () => { vid.replaceWith(img); banner.classList.add("show"); };
+    img.onerror = () => banner.classList.remove("show");
+    img.src = vid.getAttribute("poster");
+  });
+})();
+
+/* ── engine health (honest status, never assumed) ─────── */
+$("#engine-url").textContent = ENGINE_BASE;
+
+/* UI-3 (2026-09-24): dynamic production badge, bound to GET /v1/hybrid/health
+   and re-polled every 60s. Honest states only — nothing is assumed:
+     unreachable     -> pill "engine: offline"
+     kill switch on  -> pill "engine: paused"  (answers held for human review)
+     sklearn present -> pill "engine: production", mode "Production (Live)"
+     sklearn missing -> pill "engine: live",   mode "deterministic router"
+     old build       -> pill "engine: live",   mode "redeploy pending"         */
+async function updateEngineBadge(){
+  const pill = $("#engine-pill");
+  try {
+    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 6000);
+    const r = await fetch(ENGINE_BASE + "/v1/hybrid/health", {signal: ctl.signal}); clearTimeout(t);
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const d = await r.json();
+    pill.classList.remove("online","offline","warn");
+    if (d.kill_switch) {
+      pill.textContent = "engine: paused"; pill.classList.add("warn");
+      $("#engine-mode").textContent = "kill switch engaged — answers held for human review";
+    } else if (d.sklearn_available) {
+      pill.textContent = "engine: production"; pill.classList.add("online");
+      $("#engine-mode").textContent = "Engine: Production (Live) — ML classifier active";
+    } else if (d.ml_offline_fallback) {
+      pill.textContent = "engine: live"; pill.classList.add("warn");
+      $("#engine-mode").textContent = "deterministic knowledge router (ML offline)";
+    } else {
+      pill.textContent = "engine: live"; pill.classList.add("warn");
+      $("#engine-mode").textContent = "older engine build (pre-router) — redeploy pending on Railway";
+    }
+    return true;
+  } catch (e) {
+    pill.classList.remove("online","warn");
+    pill.textContent = "engine: offline"; pill.classList.add("offline");
+    $("#engine-mode").textContent = "cannot reach the engine — check connection";
+    return false;
+  }
+}
+
+(async () => {
+  const reachable = await updateEngineBadge();
+  setInterval(updateEngineBadge, 60000);
+  if (!reachable) {
+    $("#engine-detail").innerHTML = "No engine reachable at <span class='kv'>" + esc(ENGINE_BASE) + "</span>. "
+      + "The engine deploys at launch — this console is fully wired and will answer live the moment it is up. "
+      + "The example below is a real response recorded from the engine on 2026-09-21.";
+    return;
+  }
+  try {
+    const d = await (await fetch(ENGINE_BASE + "/v1/health")).json();
+    $("#engine-detail").innerHTML = "Live at <span class='kv'>" + esc(ENGINE_BASE) + "</span> — status: <strong>" + esc(d.status || "ok") + "</strong>. Answers below are real engine responses.";
+    try {
+      const cat = await (await fetch(ENGINE_BASE + "/v1/finlit/scam-patterns")).json();
+      $("#catalogue-body").innerHTML = "Scam Shield checks against a live versioned catalogue: <strong>v"
+        + esc(cat.version) + " · " + esc(cat.patterns.length) + " fraud families</strong> (updated "
+        + esc(cat.updated) + "), plus deterministic promise-anatomy signals. Source: <span class='kv'>GET /v1/finlit/scam-patterns</span>.";
+    } catch (_) { /* catalogue card keeps its honest fallback text */ }
+    try {
+      const meta = await (await fetch(ENGINE_BASE + "/v1/history")).json();
+      ARCHIVE_META = meta;
+      $("#engine-detail").innerHTML += " African History Archive: <strong>v" + esc(meta.version) + " · " + esc(meta.entry_count) + " curated entries</strong>, every one carrying its sources.";
+    } catch (_) { /* archive note appears only when the engine really serves it */ }
+    try {
+      const smeta = await (await fetch(ENGINE_BASE + "/v1/services")).json();
+      SERVICES_META = smeta;
+      $("#engine-detail").innerHTML += " Everyday Services Pack: <strong>v" + esc(smeta.version) + " · " + esc(smeta.entry_count) + " sourced guides</strong> (SASSA · SARS · UIF · NSFAS).";
+    } catch (_) { /* services note appears only when the engine really serves it */ }
+  } catch (e) { /* badge poller already shows the honest state; detail card keeps its fallback text */ }
+})();
+
+/* ── stream helpers ────────────────────────────────────── */
+function addUser(text){
+  const d = document.createElement("div"); d.className = "msg user";
+  d.innerHTML = "<div class='bubble'>" + esc(text) + "</div>";
+  $("#stream").appendChild(d); d.scrollIntoView({behavior:"smooth", block:"end"});
+}
+function addAI(html, tag){
+  const d = document.createElement("div"); d.className = "msg ai";
+  d.innerHTML = "<div class='bubble'>" + (tag || "") + html + "</div>";
+  $("#stream").appendChild(d); d.scrollIntoView({behavior:"smooth", block:"end"});
+  return d;
+}
+function thinking(){
+  const d = document.createElement("div"); d.className = "msg ai";
+  d.innerHTML = "<div class='bubble'><div class='thinking'>Contacting the engine…</div></div>";
+  $("#stream").appendChild(d); d.scrollIntoView({behavior:"smooth", block:"end"}); return d;
+}
+function contract(json){
+  $("#contract-empty").style.display = "none";
+  const pre = $("#contract"); pre.style.display = "block";
+  pre.textContent = JSON.stringify(json, null, 1);
+}
+
+/* ── citation locator (mirrors core/citations.py resolve_locator) ── */
+function locator(c){
+  if (c.doi && /^10\.\d{4,9}\/\S+$/.test(c.doi)) return "https://doi.org/" + c.doi;
+  if (c.pmid && /^\d{6,9}$/.test(c.pmid)) return "https://pubmed.ncbi.nlm.nih.gov/" + c.pmid + "/";
+  if (c.url && /^https?:\/\/[^\s/$.?#].[^\s]*$/i.test(c.url)) return c.url;
+  return null;
+}
+
+/* ── Scam Shield renderer (contract: core/finlit.py) ──── */
+function renderScam(d, tag){
+  contract(d);
+  const band = d.risk_level || "none";
+  let h = "<div class='verdict-band vb-" + esc(band) + "'>"
+        + "<span class='score'>score " + esc(d.risk_score) + "</span>"
+        + "<div class='band'>" + esc(band) + " risk</div>"
+        + "<div>" + esc(d.verdict) + "</div></div>";
+  if (d.matched_patterns && d.matched_patterns.length){
+    h += "<div class='panel-h'>Matched fraud patterns (" + d.matched_patterns.length + ")</div>";
+    d.matched_patterns.forEach(p => {
+      h += "<details class='pattern'><summary>" + esc(p.name) + " · severity " + esc(p.weight) + "</summary>"
+         + "<div class='body'>"
+         + (p.description ? "<p>" + esc(p.description) + "</p>" : "")
+         + (p.sa_example ? "<p class='kv'>Seen in SA: " + esc(p.sa_example) + "</p>" : "")
+         + (p.matched_indicators && p.matched_indicators.length
+            ? "<p class='kv'>Triggered by: “" + p.matched_indicators.map(esc).join("”, “") + "”</p>" : "")
+         + (p.advice ? "<p style='margin-top:6px'><strong>What to do:</strong> " + esc(p.advice) + "</p>" : "")
+         + "</div></details>";
+    });
+  }
+  if (d.questions_to_ask && d.questions_to_ask.length){
+    h += "<div class='panel-h'>Ask them this</div><ul class='tight'>"
+       + d.questions_to_ask.map(q => "<li>" + esc(q) + "</li>").join("") + "</ul>";
+  }
+  if (d.golden_rules && d.golden_rules.length){
+    h += "<div class='panel-h'>Ubuntu Shield — golden rules</div><ul class='tight'>"
+       + d.golden_rules.map(q => "<li>" + esc(q) + "</li>").join("") + "</ul>";
+  }
+  if (d.report_line) h += "<p class='kv' style='margin-top:8px'>📞 " + esc(d.report_line) + "</p>";
+  if (d.disclaimer) h += "<p class='kv' style='margin-top:6px'>" + esc(d.disclaimer) + "</p>";
+  addAI(h, tag);
+  /* rail */
+  $("#risk-empty").style.display = "none"; $("#risk-body").style.display = "block";
+  const chip = $("#risk-chip"); chip.textContent = band; chip.style.background = getComputedStyle(document.documentElement).getPropertyValue("--r-" + band) || "#555";
+  $("#risk-score").textContent = d.risk_score;
+  $("#risk-patterns").innerHTML = (d.matched_patterns || []).map(p => esc(p.name)).join("<br>") || "No known patterns matched.";
+  $("#risk-questions").innerHTML = (d.questions_to_ask || []).map(q => "<li>" + esc(q) + "</li>").join("");
+  $("#risk-rules").innerHTML = (d.golden_rules || []).map(q => "<li>" + esc(q) + "</li>").join("");
+  $("#risk-report").textContent = d.report_line || "";
+}
+
+/* ── Deep Research renderer (contract: core/deep_research.py + core/citations.py) ── */
+function renderResearch(d, tag){
+  contract(d);
+  const r = d.result || {};
+  const verified = r.verification === "verified";
+  let h = "<div class='verif-banner " + (verified ? "verified" : "unverified") + "'>" + esc(r.label || "") + "</div>";
+  h += "<div>" + esc(r.answer || "").replace(/\n{2,}/g, "<br><br>").replace(/\n/g, "<br>") + "</div>";
+  h += "<div class='meta-row'>"
+     + "<span class='pill'>synthesis: " + esc(d.synthesis_mode || "—") + "</span>"
+     + (d.plan && d.plan.guided ? "<span class='pill online'>guided by your context_hint</span>" : "")
+     + "<span class='pill'>" + esc(d.elapsed_ms) + " ms</span></div>";
+  const cites = r.citations || [];
+  if (cites.length){
+    h += "<div class='panel-h'>Sources (" + (r.verifiable_count || 0) + " verifiable of " + cites.length + ")</div>";
+    cites.forEach((c, i) => {
+      const loc = locator(c);
+      const inner = "<div class='t'>" + (i + 1) + ". " + esc(c.title) + "</div>"
+        + "<div class='m'>" + esc(c.source) + (c.year ? " · " + esc(c.year) : "")
+        + (c.authors && c.authors.length ? " · " + esc(c.authors.slice(0, 3).join(", ")) : "")
+        + (loc ? "" : " · no resolvable link — shown for transparency") + "</div>";
+      h += loc ? "<a class='cite' href='" + esc(loc) + "' target='_blank' rel='noopener'>" + inner + "</a>"
+               : "<div class='cite nolink'>" + inner + "</div>";
+    });
+  }
+  if (!verified && d.plan){
+    h += "<div class='escalate'><strong>Not a dead end.</strong> Add a context_hint below — synonyms, the local or technical name, a document title — and it is routed straight back into retrieval."
+       + "<br><button class='action' onclick='document.getElementById(\"hint\").focus()'>Add a context_hint</button></div>";
+  }
+  addAI(h, tag);
+  /* rail */
+  $("#sources-empty").style.display = "none"; $("#sources-body").style.display = "block";
+  const vb = $("#sources-verif"); vb.textContent = r.label || ""; vb.className = "verif-banner " + (verified ? "verified" : "unverified");
+  $("#sources-meta").textContent = "synthesis " + (d.synthesis_mode || "—") + " · " + (d.plan ? d.plan.sub_queries.length : 0) + " sub-queries" + (d.plan && d.plan.guided ? " · guided" : "") + " · " + d.elapsed_ms + " ms";
+  $("#sources-list").innerHTML = cites.map((c, i) => {
+    const loc = locator(c);
+    return loc ? "<a class='cite' href='" + esc(loc) + "' target='_blank' rel='noopener'><div class='t'>" + (i + 1) + ". " + esc(c.title) + "</div><div class='m'>" + esc(c.source) + (c.year ? " · " + esc(c.year) : "") + "</div></a>"
+               : "<div class='cite nolink'><div class='t'>" + (i + 1) + ". " + esc(c.title) + "</div><div class='m'>" + esc(c.source) + " · unverifiable locator</div></div>";
+  }).join("");
+}
+
+/* ── African History renderer (contract: core/african_history.py) ── */
+function sourceItem(s){  /* archive sources are citation strings — shown as-is, never linkified unless real */
+  return "<div class='cite nolink'><div class='t'>" + esc(s) + "</div></div>";
+}
+function renderHistory(d, query, tag){
+  contract(d);
+  const hits = d.entries || [];
+  if (!hits.length){
+    addAI("<p><strong>No archive entry matches “" + esc(query) + "” — and I will not invent one.</strong></p>"
+        + "<p style='margin-top:8px'>The archive holds " + (ARCHIVE_META ? "<strong>" + esc(ARCHIVE_META.entry_count) + "</strong>" : "a curated set of")
+        + " sourced entries" + (ARCHIVE_META ? " (v" + esc(ARCHIVE_META.version) + ")" : "")
+        + ". Try a kingdom, a leader, a city — or browse the whole sweep at <span class='kv'>GET /v1/history/timeline</span>.</p>",
+        "<span class='tag honest'>No match — nothing fabricated</span>");
+    return;
+  }
+  let h = "<div class='meta-row' style='margin:0 0 8px'><span class='pill'>" + hits.length + " archive " + (hits.length === 1 ? "entry" : "entries") + "</span>"
+        + (ARCHIVE_META ? "<span class='pill'>archive v" + esc(ARCHIVE_META.version) + "</span>" : "")
+        + "<span class='pill online'>every entry sourced</span></div>";
+  hits.forEach(e => {
+    h += "<details class='pattern' data-entry='" + esc(e.id) + "'><summary>" + esc(e.title)
+       + " · <span class='kv'>" + esc(e.period) + " · " + esc(e.region) + "</span></summary>"
+       + "<div class='body'><p>" + esc(e.summary) + "</p>"
+       + "<p class='kv' style='margin-top:6px'>Category: " + esc(e.category) + " — expand once to load significance &amp; sources</p>"
+       + "<div class='hist-detail'></div></div></details>";
+  });
+  h += "<p class='kv' style='margin-top:8px'>Curated educational content — check the sources yourself. History that is still debated is labelled as debate, not presented as settled fact.</p>";
+  const el = addAI(h, tag);
+  el.querySelectorAll("details[data-entry]").forEach(det => {
+    det.addEventListener("toggle", async () => {
+      if (!det.open || det.dataset.loaded) return;
+      det.dataset.loaded = "1";
+      const box = det.querySelector(".hist-detail");
+      const id = det.getAttribute("data-entry");
+      try {
+        const full = await (await fetch(ENGINE_BASE + "/v1/history/entries/" + encodeURIComponent(id))).json();
+        box.innerHTML = "<p style='margin-top:6px'><strong>Why it matters:</strong> " + esc(full.significance) + "</p>"
+          + "<div class='panel-h'>Sources (" + full.sources.length + ")</div>"
+          + full.sources.map(sourceItem).join("");
+        $("#sources-empty").style.display = "none"; $("#sources-body").style.display = "block";
+        const vb = $("#sources-verif"); vb.textContent = "ARCHIVE ENTRY — SOURCES PROVIDED"; vb.className = "verif-banner verified";
+        $("#sources-meta").textContent = full.title + " · " + full.period + " · " + full.sources.length + " sources"
+          + (ARCHIVE_META ? " · archive v" + ARCHIVE_META.version : "");
+        $("#sources-list").innerHTML = full.sources.map(sourceItem).join("");
+      } catch (err) {
+        box.innerHTML = "<p class='kv'>Could not load the full entry (" + esc(String(err && err.message || err)) + ") — the summary above is still real archive content.</p>";
+      }
+    });
+  });
+}
+
+/* ── Everyday Services renderer (contract: core/everyday_services.py) ── */
+function renderServices(d, query, tag){
+  contract(d);
+  const hits = d.entries || [];
+  if (!hits.length){
+    addAI("<p><strong>No services guide matches “" + esc(query) + "” — and I will not improvise one.</strong></p>"
+        + "<p style='margin-top:8px'>The pack holds " + (SERVICES_META ? "<strong>" + esc(SERVICES_META.entry_count) + "</strong>" : "a curated set of")
+        + " sourced guides" + (SERVICES_META ? " (v" + esc(SERVICES_META.version) + ")" : "")
+        + " covering SASSA grants, SRD, SARS, UIF and NSFAS. Try “SRD”, “pension”, “child grant”, “tax”, “UIF” or “NSFAS”.</p>",
+        "<span class='tag honest'>No match — nothing fabricated</span>");
+    return;
+  }
+  let h = "<div class='meta-row' style='margin:0 0 8px'><span class='pill'>" + hits.length + " services " + (hits.length === 1 ? "guide" : "guides") + "</span>"
+        + (SERVICES_META ? "<span class='pill'>pack v" + esc(SERVICES_META.version) + "</span>" : "")
+        + "<span class='pill online'>official sources only</span></div>";
+  hits.forEach(e => {
+    h += "<details class='pattern' data-svc='" + esc(e.id) + "'><summary>" + esc(e.title)
+       + " · <span class='kv'>" + esc(e.agency) + "</span></summary>"
+       + "<div class='body'><p>" + esc(e.summary) + "</p>"
+       + "<p class='kv' style='margin-top:6px'>Category: " + esc(e.category) + " — expand once to load steps, official channels & scam warning</p>"
+       + "<div class='svc-detail'></div></div></details>";
+  });
+  h += "<p class='kv' style='margin-top:8px'>Guidance built from official sources with a verified-on date — amounts and dates change; confirm on the official channel named in each guide. Educational information only, not legal or financial advice.</p>";
+  const el = addAI(h, tag);
+  el.querySelectorAll("details[data-svc]").forEach(det => {
+    det.addEventListener("toggle", async () => {
+      if (!det.open || det.dataset.loaded) return;
+      det.dataset.loaded = "1";
+      const box = det.querySelector(".svc-detail");
+      const id = det.getAttribute("data-svc");
+      try {
+        const full = await (await fetch(ENGINE_BASE + "/v1/services/entries/" + encodeURIComponent(id))).json();
+        let ih = "<div class='panel-h'>Steps</div><ol class='tight' style='padding-left:18px'>"
+          + full.steps.map(s => "<li>" + esc(s) + "</li>").join("") + "</ol>"
+          + "<div class='panel-h'>Official channels</div><ul class='tight'>"
+          + full.official_channels.map(s => "<li>" + esc(s) + "</li>").join("") + "</ul>"
+          + "<div class='escalate' style='margin-top:8px'><strong>⚠️ Scam warning:</strong> " + esc(full.warning) + "</div>"
+          + "<div class='panel-h'>Sources (" + full.sources.length + ")</div>"
+          + full.sources.map(sourceItem).join("");
+        box.innerHTML = ih;
+        $("#sources-empty").style.display = "none"; $("#sources-body").style.display = "block";
+        const vb = $("#sources-verif"); vb.textContent = "SERVICES GUIDE — OFFICIAL SOURCES"; vb.className = "verif-banner verified";
+        $("#sources-meta").textContent = full.title + " · " + full.agency + " · " + full.sources.length + " sources"
+          + (SERVICES_META ? " · pack v" + SERVICES_META.version : "");
+        $("#sources-list").innerHTML = full.sources.map(sourceItem).join("");
+      } catch (err) {
+        box.innerHTML = "<p class='kv'>Could not load the full guide (" + esc(String(err && err.message || err)) + ") — the summary above is still real pack content.</p>";
+      }
+    });
+  });
+}
+
+/* ── Standard (hybrid front door) renderer (contract: core/hybrid_ai.py) ── */
+function renderHybrid(d, query, tag){
+  contract(d);
+  let h = "<div class='meta-row' style='margin:0 0 8px'><span class='pill'>" + esc(d.engine_used || "hybrid") + "</span>"
+        + "<span class='pill'>confidence " + Math.round((d.confidence || 0) * 1000) / 10 + "%</span>"
+        + (d.latency_ms != null ? "<span class='pill'>" + esc(d.latency_ms) + " ms</span>" : "") + "</div>";
+  if (d.boundary) h += "<div class='verif-banner unverified'>" + esc(d.boundary) + "</div>";
+  h += "<div>" + esc(d.response || "").replace(/\n{2,}/g, "<br><br>").replace(/\n/g, "<br>") + "</div>";
+  if (d.escalation && d.escalation.available){
+    h += "<div class='escalate'><strong>Two ways forward — your call.</strong> Deep Research retrieves real sources (free scholarly APIs; synthesis is budget-guarded)."
+       + "<br><button class='action' data-escalate='" + esc(query) + "'>Take this to Deep Research</button></div>";
+  }
+  const el = addAI(h, tag);
+  const btn = el.querySelector("[data-escalate]");
+  if (btn) btn.addEventListener("click", () => {
+    setMode("research"); $("#input").value = btn.getAttribute("data-escalate"); $("#hint").focus();
+  });
+}
+
+/* ── honest states ─────────────────────────────────────── */
+function professorCard(){
+  addAI("<p><strong>The Professor</strong> adapts explanations to your level, quizzes you, and tracks your progress over time. It runs on the engine's teaching engine and requires a Luqi-ai account — sign-in activates at launch.</p>"
+      + "<p style='margin-top:8px'>Until then, <strong>Standard</strong>, <strong>Deep Research</strong>, <strong>Scam Shield</strong>, <strong>African History</strong> and <strong>Everyday Services</strong> work without an account.</p>",
+      "<span class='tag honest'>Honest status</span>");
+}
+function offlineCard(endpoint, payload, err){
+  addAI("<p><strong>I could not reach the engine, and I will not pretend to answer.</strong></p>"
+      + "<p style='margin-top:8px'>I tried <span class='kv'>" + esc(endpoint) + "</span> with your message. The error was: <span class='kv'>" + esc(String(err && err.message || err)) + "</span>.</p>"
+      + "<p style='margin-top:8px'>The engine deploys at launch. The moment it is reachable, this exact message gets a real answer through this exact pipeline. The recorded example above shows the real output shape.</p>",
+      "<span class='tag honest'>Engine offline — nothing simulated</span>");
+  contract({attempted: endpoint, payload: payload, error: String(err && err.message || err)});
+}
+
+/* ── send ──────────────────────────────────────────────── */
+$("#input").addEventListener("keydown", ev => {  /* Enter sends, Shift+Enter newline */
+  if (ev.key === "Enter" && !ev.shiftKey){ ev.preventDefault(); $("#composer").requestSubmit(); }
+});
+$("#composer").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  if (mode === "companion" || mode === "av") return;  /* companion + AV use their own forms */
+  const text = $("#input").value.trim(); if (!text) return;
+  if (mode === "professor"){ professorCard(); return; }
+  addUser(text); $("#input").value = "";
+  const spin = thinking();
+  let endpoint, payload;
+  if (mode === "scam"){ endpoint = "/v1/finlit/scam-check"; payload = {text}; }
+  else if (mode === "history"){ endpoint = "/v1/history/entries?q=" + encodeURIComponent(text); payload = null; }
+  else if (mode === "services"){ endpoint = "/v1/services/entries?q=" + encodeURIComponent(text); payload = null; }
+  else if (mode === "research"){
+    endpoint = "/v1/deep-research"; payload = {query: text, mode: "auto"};
+    const hint = $("#hint").value.trim(); if (hint) payload.context_hint = hint;
+  }
+  else { endpoint = "/v1/hybrid/process"; payload = {text}; }
+  try {
+    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 90000);
+    const res = payload === null
+      ? await fetch(ENGINE_BASE + endpoint, {signal: ctl.signal})
+      : await fetch(ENGINE_BASE + endpoint, {
+          method: "POST", headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(payload), signal: ctl.signal
+        });
+    clearTimeout(t);
+    spin.remove();
+    if (!res.ok) throw new Error("HTTP " + res.status + " — " + (await res.text()).slice(0, 300));
+    const data = await res.json();
+    const tag = "<span class='tag live'>Live engine response</span>";
+    if (mode === "scam") renderScam(data, tag);
+    else if (mode === "research") renderResearch(data, tag);
+    else if (mode === "history") renderHistory(data, text, tag);
+    else if (mode === "services") renderServices(data, text, tag);
+    else renderHybrid(data, text, tag);
+  } catch (e) {
+    spin.remove(); offlineCard(ENGINE_BASE + endpoint, payload || {method: "GET"}, e);
+  }
+});
+
+/* ── AV Consult mode (contract: core/av_consult.py) ───────
+   POST /v1/av/consult {length_m,width_m,height_m,wall_material,fx_rate_zar?}
+   → {system_meta, spatial_metrics.acoustics_payload, cabling_infrastructure,
+      procurement_projection{estimated_landing_cost_zar, fx_source, ...},
+      sources:[], is_estimate:true, estimate_disclaimer}
+   HONESTY: fx_source rendered verbatim — request_override | live:open.er-api.com
+   | fallback_assumption. Offline → honest offlineCard, never a fake number. */
+const FX_SOURCE_LABELS = {
+  "request_override": "rate you typed in",
+  "live:open.er-api.com": "LIVE rate fetched now from open.er-api.com",
+  "fallback_assumption": "assumed fallback rate (live fetch unavailable) — treat with caution"
+};
+function renderAv(d){
+  contract(d);
+  const ac = d.spatial_metrics.acoustics_payload;
+  const p = d.procurement_projection;
+  const net = d.network_infrastructure || {};
+  const sch = d.facility_scheduling || {};
+  const inv = d.inventory || {};
+  const fxLabel = FX_SOURCE_LABELS[p.fx_source] || p.fx_source;
+  let h = "<div class='panel-h'>Profile — " + esc(d.system_meta.architectural_profile) + " (" + d.spatial_metrics.floor_area_sqm + " m²)</div>"
+    + "<ul class='tight'>"
+    + "<li><strong>RT60:</strong> " + ac.estimated_rt60_seconds + "s · " + esc(ac.aec_dsp_profile) + "</li>"
+    + "<li>" + esc(ac.acoustic_remediation_notes) + "</li>"
+    + "<li><strong>Cable:</strong> " + esc(d.cabling_infrastructure.recommended_cable) + " — " + esc(d.cabling_infrastructure.engineering_justification) + "</li>"
+    + "</ul>";
+  if (net.engineered_load_gbps !== undefined) {
+    h += "<div class='panel-h'>Network (AV-over-IP)</div><ul class='tight'>"
+      + "<li>" + net.active_streams + " streams · " + esc(net.stream_protocol) + " — raw " + net.raw_payload_gbps + " Gbps, engineered <strong>" + net.engineered_load_gbps + " Gbps</strong></li>"
+      + "<li><strong>Switch:</strong> " + esc(net.recommended_switch_fabric) + "</li>"
+      + "<li>" + esc(net.network_topology_note) + "</li></ul>";
+  }
+  if (sch.scheduling_panel_class) {
+    h += "<div class='panel-h'>Scheduling panel</div><ul class='tight'>"
+      + "<li>" + esc(sch.scheduling_panel_class) + " · " + esc(sch.power_draw) + "</li>"
+      + "<li><strong>Mount:</strong> " + esc(sch.mounting_hardware) + "</li>"
+      + "<li>" + esc(sch.cabling_pathway) + "</li></ul>";
+  }
+  h += "<div class='panel-h'>Cost estimate (assumptions disclosed)</div>"
+    + "<ul class='tight'>"
+    + "<li><strong>R " + Number(p.estimated_landing_cost_zar).toLocaleString("en-ZA", {minimumFractionDigits: 2}) + "</strong> estimated landing cost (" + esc(p.recommended_hardware_ecosystem) + " ecosystem)</li>"
+    + "<li>USD base $" + p.base_hardware_usd_assumption + " × brand mult " + p.brand_multiplier_assumption + " × buffer " + p.volatility_buffer_assumption + " × R" + p.fx_rate_zar_used + "/$ <em>(" + esc(fxLabel) + ")</em></li>"
+    + "<li>" + esc(p.distributor_note) + "</li>"
+    + "</ul>";
+  if (inv.status) {
+    h += "<div class='panel-h'>Inventory — " + (inv.is_live ? "<span class='tag live'>live supplier API</span>" : "not live") + "</div>"
+      + "<ul class='tight'><li>" + esc(inv.status) + (inv.component ? " · " + esc(inv.component) + ": " + inv.available_units + " units · " + esc(inv.lead_time || "") : "") + "</li>"
+      + "<li>" + esc(inv.note || "") + "</li></ul>";
+  }
+  h += "<p class='kv' style='margin-top:6px'>⚠️ " + esc(d.estimate_disclaimer) + "</p>"
+    + "<button class='action' type='button' id='av-pdf-btn' style='margin-top:8px'>Download PDF proposal</button>";
+  $("#av-result").innerHTML = "<div class='msg ai'><div class='bubble'><span class='tag live'>Live engine response</span>" + h + "</div></div>";
+  $("#av-pdf-btn").addEventListener("click", () => downloadAvPdf());
+}
+async function downloadAvPdf(){
+  const payload = lastAvPayload; if (!payload) return;
+  try {
+    const res = await fetch(ENGINE_BASE + "/v1/av/proposal", {
+      method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error("HTTP " + res.status + " — " + (await res.text()).slice(0, 200));
+    const blob = await res.blob();
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "luqi-av-proposal.pdf";
+    a.click(); URL.revokeObjectURL(a.href);
+  } catch (e) {
+    alert("PDF not generated — engine said: " + e.message);  /* honest failure, no fake download */
+  }
+}
+let lastAvPayload = null;
+$("#av-form").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const payload = {
+    length_m: parseFloat($("#av-l").value),
+    width_m: parseFloat($("#av-w").value),
+    height_m: parseFloat($("#av-h").value),
+    wall_material: $("#av-wall").value,
+    num_video_streams: parseInt($("#av-streams").value, 10),
+    stream_protocol: $("#av-proto").value
+  };
+  const fx = $("#av-fx").value.trim();
+  if (fx) payload.fx_rate_zar = parseFloat(fx);
+  lastAvPayload = payload;
+  $("#av-result").innerHTML = "<div class='msg ai'><div class='bubble'><div class='thinking'>Contacting the engine…</div></div></div>";
+  try {
+    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 30000);
+    const res = await fetch(ENGINE_BASE + "/v1/av/consult", {
+      method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(payload), signal: ctl.signal
+    });
+    clearTimeout(t);
+    if (!res.ok) throw new Error("HTTP " + res.status + " — " + (await res.text()).slice(0, 300));
+    renderAv(await res.json());
+  } catch (e) {
+    $("#av-result").innerHTML = "";
+    offlineCard(ENGINE_BASE + "/v1/av/consult", payload, e);
+    setMode("standard");
+  }
+});
+
+/* ── Companion mode (contract: omega-super-ai) ────────────
+   POST /v1/auth/register {email,password} → 201, then login
+   POST /v1/auth/login    {email,password} → {access_token}
+   POST /v1/auth/logout   Bearer
+   POST /v1/companion/chat Bearer {mode,message,topic?}
+     mode ∈ chat|mentor|coach|quiz|explain|listen →
+     {mode, companion_name, response, directives_applied[],
+      memories_used, relationship:{interaction_count, streak_days, trust_score}}
+   Engine error detail text is surfaced verbatim — never softened. */
+const CP_TOPIC_MODES = {mentor: 1, quiz: 1, explain: 1};  /* topic field only where the engine uses it */
+let cpMode = "chat";
+let cpCreate = false;  /* gate toggle: false = sign in, true = create account */
+
+function cpDetailText(r){  /* honest error text straight from the engine body */
+  return r.text().then(t => {
+    try {
+      const j = JSON.parse(t);
+      if (typeof j.detail === "string") return j.detail;
+      if (Array.isArray(j.detail)) return j.detail.map(x => x.msg || JSON.stringify(x)).join("; ");
+      return t.slice(0, 300);
+    } catch (_) { return t.slice(0, 300) || ("HTTP " + r.status); }
+  });
+}
+function cpOfflineErr(e){
+  return "ENGINE OFFLINE — start the engine or check the URL (tried " + ENGINE_BASE + "). " + String(e && e.message || e);
+}
+function cpEnter(){  /* called every time the Companion chip becomes active */
+  if (sessionStorage.getItem("luqi_token")) cpShowChat(); else cpShowGate();
+}
+function cpShowGate(msg){
+  $("#cp-chat").style.display = "none";
+  $("#cp-gate").style.display = "";
+  $("#cp-auth-err").textContent = msg || "";
+}
+function cpShowChat(){
+  $("#cp-gate").style.display = "none";
+  $("#cp-chat").style.display = "";
+  $("#cp-email-shown").textContent = sessionStorage.getItem("luqi_email") || "your account";
+  if (!$("#cp-thread").children.length)
+    cpAddAI("<p><strong>This is your Companion.</strong> It remembers your conversations, builds a streak when you show up, and grows trust over time. Pick a mode above and say hello — the first reply comes from the real engine.</p>",
+            "<span class='tag honest'>Honest intro — nothing simulated</span>", null);
+}
+
+/* ── companion auth ─────────────────────────────────── */
+$("#cp-auth-toggle").addEventListener("click", () => {
+  cpCreate = !cpCreate;
+  $("#cp-auth-btn").textContent = cpCreate ? "Create account" : "Sign in";
+  $("#cp-auth-toggle").textContent = cpCreate ? "Sign in instead" : "Create an account instead";
+  $("#cp-pass").setAttribute("autocomplete", cpCreate ? "new-password" : "current-password");
+  $("#cp-auth-err").textContent = "";
+});
+$("#cp-auth-btn").addEventListener("click", cpAuth);
+$("#cp-gate").addEventListener("keydown", ev => { if (ev.key === "Enter"){ ev.preventDefault(); cpAuth(); } });
+async function cpAuth(){
+  const email = $("#cp-email").value.trim(), password = $("#cp-pass").value;
+  const errEl = $("#cp-auth-err"); errEl.textContent = "";
+  if (!email || !password){ errEl.textContent = "Enter both an email address and a password."; return; }
+  const btn = $("#cp-auth-btn"); btn.disabled = true;
+  const label = btn.textContent; btn.textContent = "Contacting the engine…";
+  try {
+    if (cpCreate){
+      const rr = await fetch(ENGINE_BASE + "/v1/auth/register", {
+        method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({email, password})
+      });
+      if (!rr.ok){ errEl.textContent = await cpDetailText(rr); return; }  /* e.g. 409 already registered */
+    }
+    const lr = await fetch(ENGINE_BASE + "/v1/auth/login", {
+      method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({email, password})
+    });
+    if (!lr.ok){ errEl.textContent = await cpDetailText(lr); return; }
+    const d = await lr.json();
+    if (!d.access_token){ errEl.textContent = "The engine answered login but sent no access_token — nothing was invented to fill the gap."; return; }
+    sessionStorage.setItem("luqi_token", d.access_token);
+    sessionStorage.setItem("luqi_email", email);
+    $("#cp-pass").value = "";
+    cpShowChat();
+  } catch (e) {
+    errEl.textContent = cpOfflineErr(e);
+  } finally {
+    btn.disabled = false; btn.textContent = label;
+  }
+}
+$("#cp-logout").addEventListener("click", async () => {
+  const tok = sessionStorage.getItem("luqi_token");
+  try {
+    if (tok) await fetch(ENGINE_BASE + "/v1/auth/logout", {method: "POST", headers: {"Authorization": "Bearer " + tok}});
+  } catch (_) { /* logout is best-effort; the local session is cleared regardless */ }
+  sessionStorage.removeItem("luqi_token");
+  sessionStorage.removeItem("luqi_email");
+  $("#cp-pass").value = "";
+  cpShowGate();
+});
+
+/* ── companion chat ─────────────────────────────────── */
+document.querySelectorAll(".cp-pill").forEach(p => p.addEventListener("click", () => {
+  cpMode = p.dataset.cpmode;
+  document.querySelectorAll(".cp-pill").forEach(x => x.classList.toggle("active", x === p));
+  $("#cp-topic-row").classList.toggle("show", !!CP_TOPIC_MODES[cpMode]);
+  $("#cp-note").textContent = "companion mode: " + cpMode + " · POST /v1/companion/chat";
+}));
+function cpAddUser(text){
+  const d = document.createElement("div"); d.className = "msg user";
+  d.innerHTML = "<div class='bubble'>" + esc(text) + "</div>";
+  $("#cp-thread").appendChild(d); d.scrollIntoView({behavior:"smooth", block:"end"});
+}
+function cpAddAI(html, tag, speaker){
+  const d = document.createElement("div"); d.className = "msg ai";
+  d.innerHTML = "<div class='bubble'>" + (speaker ? "<div class='cp-speaker'>" + esc(speaker) + "</div>" : "") + (tag || "") + html + "</div>";
+  $("#cp-thread").appendChild(d); d.scrollIntoView({behavior:"smooth", block:"end"});
+  return d;
+}
+function cpThinking(){
+  const d = document.createElement("div"); d.className = "msg ai";
+  d.innerHTML = "<div class='bubble'><div class='thinking'>Your Companion is thinking…</div></div>";
+  $("#cp-thread").appendChild(d); d.scrollIntoView({behavior:"smooth", block:"end"});
+  return d;
+}
+function renderCompanion(d){
+  contract(d);
+  /* response is a parsed JSON object — usually {"reply": "..."} but may be arbitrary */
+  let reply = null, raw = null;
+  const resp = d.response;
+  if (typeof resp === "string"){
+    try {
+      const p = JSON.parse(resp);
+      if (p && typeof p === "object" && typeof p.reply === "string") reply = p.reply;
+      else raw = JSON.stringify(p, null, 2);
+    } catch (_) { reply = resp; }
+  } else if (resp && typeof resp === "object"){
+    if (typeof resp.reply === "string") reply = resp.reply;
+    else raw = JSON.stringify(resp, null, 2);
+  }
+  let h = reply != null
+    ? "<div>" + esc(reply).replace(/\n{2,}/g, "<br><br>").replace(/\n/g, "<br>") + "</div>"
+    : "<pre class='contract'>" + esc(raw != null ? raw : "(the engine sent an empty response object)") + "</pre>";
+  /* relationship bar — the companionship proof, visible but understated */
+  const r = d.relationship || {};
+  h += "<div class='relbar'>"
+     + "<span>streak <strong>" + esc(r.streak_days != null ? r.streak_days : "—") + "</strong> day" + (r.streak_days === 1 ? "" : "s") + "</span>"
+     + "<span>·</span><span>trust <strong>" + esc(r.trust_score != null ? r.trust_score : "—") + "</strong></span>"
+     + "<span>·</span><span>interactions <strong>" + esc(r.interaction_count != null ? r.interaction_count : "—") + "</strong></span>";
+  if (d.memories_used != null) h += "<span class='relchip'>memories used: " + esc(d.memories_used) + "</span>";
+  (d.directives_applied || []).forEach(x => { h += "<span class='relchip'>" + esc(x) + "</span>"; });
+  h += "</div>";
+  cpAddAI(h, "<span class='tag live'>Live engine response</span>", d.companion_name || "Companion");
+}
+$("#cp-input").addEventListener("keydown", ev => {  /* Enter sends, Shift+Enter newline — same as other modes */
+  if (ev.key === "Enter" && !ev.shiftKey){ ev.preventDefault(); $("#cp-composer").requestSubmit(); }
+});
+$("#cp-composer").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const text = $("#cp-input").value.trim(); if (!text) return;
+  const tok = sessionStorage.getItem("luqi_token");
+  if (!tok){ cpShowGate("Your session ended — please sign in again."); return; }
+  cpAddUser(text); $("#cp-input").value = "";
+  const spin = cpThinking();
+  const payload = {mode: cpMode, message: text};
+  const topic = $("#cp-topic").value.trim();
+  if (CP_TOPIC_MODES[cpMode] && topic) payload.topic = topic.slice(0, 120);
+  try {
+    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 90000);
+    const res = await fetch(ENGINE_BASE + "/v1/companion/chat", {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Authorization": "Bearer " + tok},
+      body: JSON.stringify(payload), signal: ctl.signal
+    });
+    clearTimeout(t);
+    spin.remove();
+    if (res.status === 401 || res.status === 403){
+      const detail = await cpDetailText(res);  /* e.g. "Not authenticated" / session expired */
+      sessionStorage.removeItem("luqi_token");
+      cpShowGate(detail + " — please sign in again.");  /* thread is kept; it reappears on next sign-in */
+      return;
+    }
+    if (!res.ok){
+      const detail = await cpDetailText(res);  /* e.g. 400 invalid mode, 503 persistence unavailable — verbatim */
+      cpAddAI("<p><strong>The engine could not answer (HTTP " + res.status + ").</strong></p>"
+            + "<p style='margin-top:6px'>" + esc(detail) + "</p>",
+              "<span class='tag honest'>Engine error — detail shown verbatim</span>", "Companion");
+      contract({attempted: ENGINE_BASE + "/v1/companion/chat", status: res.status, detail: detail});
+      return;
+    }
+    renderCompanion(await res.json());
+  } catch (e) {
+    spin.remove();
+    cpAddAI("<p><strong>ENGINE OFFLINE — start the engine or check the URL.</strong></p>"
+          + "<p style='margin-top:8px'>I tried <span class='kv'>" + esc(ENGINE_BASE + "/v1/companion/chat") + "</span> with your message. The error was: <span class='kv'>" + esc(String(e && e.message || e)) + "</span>.</p>",
+            "<span class='tag honest'>Engine offline — nothing simulated</span>", "Companion");
+    contract({attempted: ENGINE_BASE + "/v1/companion/chat", payload: payload, error: String(e && e.message || e)});
+  }
+});
+
+/* ── Tester feedback (contract: core/feedback.py) ─────────
+   POST /v1/feedback/submit Bearer {target,rating,comment} → {recorded:true}
+   Reuses the Companion session token. Engine errors verbatim; no fake success. */
+function fbRefresh(){
+  const authed = !!sessionStorage.getItem("luqi_token");
+  $("#fb-form").style.display = authed ? "" : "none";
+  $("#fb-note").style.display = authed ? "none" : "";
+}
+$("#fb-send").addEventListener("click", async () => {
+  const comment = $("#fb-comment").value.trim();
+  const payload = {target: "tester", rating: parseInt($("#fb-rating").value, 10), comment};
+  $("#fb-status").textContent = "Sending…";
+  try {
+    const res = await fetch(ENGINE_BASE + "/v1/feedback/submit", {
+      method: "POST",
+      headers: {"Content-Type": "application/json",
+                "Authorization": "Bearer " + sessionStorage.getItem("luqi_token")},
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error("HTTP " + res.status + " — " + (await res.text()).slice(0, 200));
+    const d = await res.json();
+    $("#fb-status").textContent = d.recorded === true
+      ? "Recorded by the engine — thank you. This shapes what gets built next."
+      : "Engine answered but did not confirm recording: " + JSON.stringify(d);
+    if (d.recorded === true) $("#fb-comment").value = "";
+    contract({endpoint: "/v1/feedback/submit", response: d});
+  } catch (e) {
+    $("#fb-status").textContent = "Not sent — engine said: " + String(e && e.message || e);
+  }
+});
+setInterval(fbRefresh, 2000); fbRefresh();
+
+/* ── recorded example (renders on load, same code path) ── */
+addUser("Join my WhatsApp crypto investment group! Invest R500 and get R5000 back in 7 days. Guaranteed returns, risk-free. Limited spots today — our automated trading bot never loses.");
+renderScam(EXAMPLE_SCAM, "<span class='tag example'>Recorded example — real engine output, 2026-09-21 · reproduce it live with the chip below</span>");
+</script>
+</body>
+</html>
