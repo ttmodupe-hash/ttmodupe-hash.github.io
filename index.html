@@ -1312,6 +1312,39 @@
             </span>`;
         }
 
+        /* UI-15: per-answer provenance ("why this answer") — the honest version
+           of a "reasoning trace". Every row is a REAL field from the engine's
+           own response object; a field the engine did not send simply does not
+           render. Nothing is synthesized client-side. */
+        function provenanceRow(d) {
+            const rows = [["route", d.engine_used || "hybrid"]];
+            if (typeof d.confidence === "number")
+                rows.push(["confidence", (Math.round(d.confidence * 1000) / 10) + "%" +
+                    (typeof d.required_gate === "number" ? " (gate " + (Math.round(d.required_gate * 1000) / 10) + "%)" : "")]);
+            if (typeof d.ml_confidence === "number")
+                rows.push(["ML confidence", (Math.round(d.ml_confidence * 1000) / 10) + "%"]);
+            if (typeof d.latency_ms === "number")
+                rows.push(["latency", d.latency_ms + " ms"]);
+            if (d.cached)
+                rows.push(["cache", "reused deterministic answer · " + Math.round((d.cache_similarity || 1) * 100) + "% match"]);
+            if (d.pii_redacted) rows.push(["privacy", "PII redacted before processing"]);
+            if (d.source && d.source.url) rows.push(["source", d.source.url]);
+            if (d.entry && d.entry.sources_via) rows.push(["sources", d.entry.sources_via]);
+            if (d.scam && d.scam.catalogue) rows.push(["catalogue", d.scam.catalogue]);
+            if (d.escalation && d.escalation.route)
+                rows.push(["escalation", (d.escalation.method ? d.escalation.method + " " : "") + d.escalation.route]);
+            if (d.ml_note) rows.push(["note", d.ml_note]);
+            const body = rows.map(([k, v]) =>
+                `<div class="flex justify-between gap-3 border-b border-slate-800/60 py-0.5 last:border-0">
+                    <span class="text-slate-500 shrink-0">${escapeHtml(k)}</span>
+                    <span class="text-slate-300 text-right break-all">${escapeHtml(String(v))}</span>
+                </div>`).join("");
+            return `<details class="bg-slate-900/70 border border-slate-800 rounded-lg px-2.5 py-1.5">
+                <summary class="text-[10px] font-mono text-slate-400 cursor-pointer select-none">Why this answer · full provenance</summary>
+                <div class="mt-1.5 text-[10px] font-mono space-y-0.5">${body}</div>
+            </details>`;
+        }
+
         /* Typewriter reveal: types the REAL response text character by
            character, then swaps in the full rendered card. The words are
            the engine's - only the reveal is theatrical. */
@@ -1401,7 +1434,7 @@
         }
 
         /* ── renderers (contracts: core/finlit.py, everyday_services.py,
-              african_history.py, deep_research.py, hybrid_ai.py) ─────────── */
+              african_history.py, deep_research.py, hybrid_ai.py) ───────────── */
         function thinking() {
             appendMessage('bot', null, '<span class="text-slate-400 text-xs font-mono"><i class="fa-solid fa-spinner animate-spin text-amber-400"></i> Contacting the engine…</span>');
             return document.getElementById('console-stream').lastChild;
@@ -1514,6 +1547,7 @@
                     </div>`;
             if (d.boundary) h += `<div class="p-2.5 bg-amber-950/30 border border-amber-800/40 rounded-lg text-xs text-amber-300">${escapeHtml(d.boundary)}</div>`;
             h += `<p class="text-xs text-slate-200 leading-relaxed">${escapeHtml(d.response || "").replace(/\n/g, "<br>")}</p>`;
+            h += provenanceRow(d);
             /* UI-12: the confidence gate is honest — but not a dead end.
                Offer a REAL next step on the live engine (Deep Research),
                plus the honest redeploy status. Never canned text. */
@@ -1538,6 +1572,7 @@
                         <span class="bg-slate-700/60 text-slate-300 px-2 py-0.5 rounded">${escapeHtml(String(d.latency_ms || 0))} ms</span>
                     </div>`;
             h += `<p class="text-xs text-slate-200 leading-relaxed">${escapeHtml(d.response || "").replace(/\n/g, "<br>")}</p>`;
+            h += provenanceRow(d);
             if (d.escalation && d.escalation.available)
                 h += `<div class="p-2.5 bg-amber-950/30 border border-amber-800/40 rounded-lg text-xs text-amber-300">${escapeHtml(d.escalation.note || "Deep Research can take this further.")}</div>`;
             if (d.pii_redacted) h += `<p class="text-[10px] font-mono text-slate-500">PII redacted before processing.</p>`;
