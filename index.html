@@ -1181,7 +1181,7 @@
            drops get bounded retry with backoff; failure states stay honest. ══ */
         const ENGINE_BASE = (new URLSearchParams(location.search).get("engine")
             || localStorage.getItem("luqi_engine")
-            || "https://engine.luqi-ai.com").replace(/\/+$/, "");
+            || "https://luqi-ai-production.up.railway.app").replace(/\/+$/, "");
 
         /* Resilience: bounded retry with exponential backoff for TRANSIENT
            failures only (network drop, 502/503/504). A 4xx is a real answer
