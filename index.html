@@ -423,11 +423,28 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <span class="text-xs font-mono text-amber-500 uppercase tracking-widest font-semibold">Engine Capabilities</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Eight modes, one rule: an answer you can check</h2>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Nine modes, one rule: an answer you can check</h2>
                 <p class="text-slate-400 mt-3 text-sm sm:text-base">Every capability returns sources, citations or an honest “UNVERIFIED” label — never a confident guess dressed up as fact.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Auto-Intent Router Card -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Auto-Intent Router</h3>
+                        <p class="text-slate-400 text-sm mt-2">Just type. The engine's trained router reads your intent and sends it to the right specialist engine — with its confidence shown on every answer.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800">
+                        <button onclick="runSamplePrompt('What is a TFSA and is it right for me?', 'auto')" class="w-full bg-slate-800/80 hover:bg-amber-950/40 border border-slate-700 text-slate-300 hover:text-amber-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
+                            <span class="truncate">Try: “What is a TFSA — right for me?”</span>
+                            <i class="fa-solid fa-play text-[10px] ml-2 text-amber-400"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Scam Shield Card -->
                 <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-red-500/40 transition-all group flex flex-col justify-between">
                     <div>
@@ -573,7 +590,7 @@
             <div class="text-center max-w-3xl mx-auto mb-14">
                 <span class="text-xs font-mono text-amber-500 uppercase tracking-widest font-semibold">Who Luqi-ai Serves</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Built for the people building Africa</h2>
-                <p class="text-slate-400 mt-3 text-sm sm:text-base">Not a generic chatbot — a working companion for the student, the advocate, the technical learner, and the entrepreneur.</p>
+                <p class="text-slate-400 mt-3 text-sm sm:text-base">Twelve of the many. If you learn, teach, heal, farm, build, report or lead in Africa — the engine meets you where you are.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -680,6 +697,114 @@
                     </div>
                     <p class="text-xs text-slate-300 leading-relaxed">Shape a business plan grounded in cited market research, learn cash flow with Money Skills, and let Scam Shield flag the schemes that target new businesses.</p>
                     <button onclick="runSamplePrompt('Help me think through a township car-wash business plan — costs, risks, and scams to watch for', 'money_skills')" class="mt-4 text-xs text-amber-400 font-semibold hover:underline flex items-center gap-1">
+                        <span>Try prompt</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </div>
+
+                <!-- Person 7: The Teacher -->
+                <div class="bg-obsidian-900 p-6 rounded-2xl border border-slate-800 relative hover:border-amber-500/30 transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">The Teacher</h3>
+                            <p class="text-xs text-slate-400">Lesson prep that respects your workload</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">The Professor structures explanations and practice quizzes at any level — use it to prepare, then let your learners question it directly at their own pace.</p>
+                    <button onclick="runSamplePrompt('Create a Grade 10 lesson on linear equations — then a practice quiz', 'professor')" class="mt-4 text-xs text-amber-400 font-semibold hover:underline flex items-center gap-1">
+                        <span>Try prompt</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </div>
+
+                <!-- Person 8: Community Health Worker -->
+                <div class="bg-obsidian-900 p-6 rounded-2xl border border-slate-800 relative hover:border-amber-500/30 transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-sm">
+                            <i class="fa-solid fa-user-nurse"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">Community Health Worker</h3>
+                            <p class="text-xs text-slate-400">Evidence you can show, not slogans</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">Deep Research answers health questions with resolvable citations — DOIs and PubMed links you can open yourself — or an honest UNVERIFIED label when evidence is thin.</p>
+                    <button onclick="runSamplePrompt('What does research say about community hypertension screening?', 'deep_research')" class="mt-4 text-xs text-amber-400 font-semibold hover:underline flex items-center gap-1">
+                        <span>Try prompt</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </div>
+
+                <!-- Person 9: The Farmer -->
+                <div class="bg-obsidian-900 p-6 rounded-2xl border border-slate-800 relative hover:border-amber-500/30 transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm">
+                            <i class="fa-solid fa-wheat-awn"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">The Farmer</h3>
+                            <p class="text-xs text-slate-400">Budgets, markets, and scheme protection</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">Money Skills works through real cost and cash-flow numbers for your operation, and Scam Shield flags the fake input suppliers and "guaranteed" agri-investment schemes.</p>
+                    <button onclick="runSamplePrompt('Help me budget a small poultry operation — feed costs, pricing, risks', 'money_skills')" class="mt-4 text-xs text-amber-400 font-semibold hover:underline flex items-center gap-1">
+                        <span>Try prompt</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </div>
+
+                <!-- Person 10: The Job Seeker -->
+                <div class="bg-obsidian-900 p-6 rounded-2xl border border-slate-800 relative hover:border-amber-500/30 transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold text-sm">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">The Job Seeker</h3>
+                            <p class="text-xs text-slate-400">Skills, interviews, and scam-free hunting</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">Ask Luqi-ai routes you to interview preparation and skill building — and Scam Shield catches the "pay a fee to get the job" schemes before they catch you.</p>
+                    <button onclick="runSamplePrompt('Help me prepare for an entry-level admin interview', 'chat')" class="mt-4 text-xs text-amber-400 font-semibold hover:underline flex items-center gap-1">
+                        <span>Try prompt</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </div>
+
+                <!-- Person 11: Faith Leader & Theology Student -->
+                <div class="bg-obsidian-900 p-6 rounded-2xl border border-slate-800 relative hover:border-amber-500/30 transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold text-sm">
+                            <i class="fa-solid fa-hands-praying"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">Faith Leader & Theology Student</h3>
+                            <p class="text-xs text-slate-400">Primary sources, not internet hearsay</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">The Heritage Archive answers from curated entries that name their primary sources — from the Ethiopian canon to verification science — with contested claims labelled as contested.</p>
+                    <button onclick="runSamplePrompt('What is the Ge\'ez canon and why is it unique?', 'heritage')" class="mt-4 text-xs text-amber-400 font-semibold hover:underline flex items-center gap-1">
+                        <span>Try prompt</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </div>
+
+                <!-- Person 12: The Journalist -->
+                <div class="bg-obsidian-900 p-6 rounded-2xl border border-slate-800 relative hover:border-amber-500/30 transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold text-sm">
+                            <i class="fa-solid fa-newspaper"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">The Journalist</h3>
+                            <p class="text-xs text-slate-400">Investigation with a paper trail</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">Deep Research builds a sourced landscape on your subject with citations you can resolve — and the African History Archive gives your story its honest historical grounding.</p>
+                    <button onclick="runSamplePrompt('Map the history of press freedom in South Africa — with sources', 'history')" class="mt-4 text-xs text-amber-400 font-semibold hover:underline flex items-center gap-1">
                         <span>Try prompt</span>
                         <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </button>
