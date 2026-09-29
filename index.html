@@ -236,6 +236,19 @@
                         <i class="fa-solid fa-chevron-right text-xs text-amber-400"></i>
                     </button>
 
+                    <button onclick="setEngineMode('chat')" id="mode-btn-chat" class="engine-mode-btn text-left p-3.5 rounded-xl border border-slate-800/80 bg-obsidian-900/60 hover:bg-slate-800/50 transition-all flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">
+                                <i class="fa-solid fa-comments"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-white">Ask Luqi-ai</div>
+                                <div class="text-xs text-slate-400">Chat Gateway front door</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-600"></i>
+                    </button>
+
                     <button onclick="setEngineMode('scam_shield')" id="mode-btn-scam_shield" class="engine-mode-btn text-left p-3.5 rounded-xl border border-slate-800/80 bg-obsidian-900/60 hover:bg-slate-800/50 transition-all flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center text-sm font-bold">
@@ -270,6 +283,19 @@
                             <div>
                                 <div class="text-sm font-bold text-white">African History Archive</div>
                                 <div class="text-xs text-slate-400">Kush to 1994 sourced records</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-600"></i>
+                    </button>
+
+                    <button onclick="setEngineMode('heritage')" id="mode-btn-heritage" class="engine-mode-btn text-left p-3.5 rounded-xl border border-slate-800/80 bg-obsidian-900/60 hover:bg-slate-800/50 transition-all flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center text-sm font-bold">
+                                <i class="fa-solid fa-scroll"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-white">Heritage & Theology</div>
+                                <div class="text-xs text-slate-400">Ethiopian canon to deep history</div>
                             </div>
                         </div>
                         <i class="fa-solid fa-chevron-right text-xs text-slate-600"></i>
@@ -325,10 +351,21 @@
                         </div>
                         <div class="flex items-center gap-4 text-slate-400">
                             <span id="engine-status"><i class="fa-solid fa-spinner animate-spin text-amber-400"></i> checking…</span>
+                            <button onclick="toggleEngineSettings()" class="hover:text-amber-400 transition-colors" title="Engine connection settings">
+                                <i class="fa-solid fa-gear"></i>
+                            </button>
                             <button onclick="clearConsole()" class="hover:text-amber-400 transition-colors" title="Clear Console">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </div>
+                    </div>
+
+                    <!-- Engine Connection Row (founder control; stored in this browser only) -->
+                    <div id="engine-settings-row" class="hidden px-3.5 py-2.5 bg-obsidian-950 border-b border-slate-800 flex items-center gap-2 text-xs font-mono">
+                        <span class="text-slate-500 flex-shrink-0">engine:</span>
+                        <input id="engine-base-input" type="text" placeholder="https://your-railway-domain.up.railway.app"
+                            class="flex-1 bg-obsidian-900 border border-slate-700 focus:border-amber-500 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-600 focus:outline-none" />
+                        <button onclick="saveEngineBase()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3 py-1.5 rounded-lg transition-all">Connect</button>
                     </div>
 
                     <!-- Conversation / Output Stream Area -->
@@ -386,7 +423,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <span class="text-xs font-mono text-amber-500 uppercase tracking-widest font-semibold">Engine Capabilities</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Six modes, one rule: an answer you can check</h2>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Eight modes, one rule: an answer you can check</h2>
                 <p class="text-slate-400 mt-3 text-sm sm:text-base">Every capability returns sources, citations or an honest “UNVERIFIED” label — never a confident guess dressed up as fact.</p>
             </div>
 
@@ -489,6 +526,40 @@
                         <button onclick="runSamplePrompt('Explain compound interest simply with numbers', 'money_skills')" class="w-full bg-slate-800/80 hover:bg-teal-950/40 border border-slate-700 text-slate-300 hover:text-teal-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
                             <span class="truncate">Try: “Explain compound interest simply”</span>
                             <i class="fa-solid fa-play text-[10px] ml-2 text-teal-400"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ask Luqi-ai (Chat Gateway) Card -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Ask Luqi-ai</h3>
+                        <p class="text-slate-400 text-sm mt-2">The Chat Gateway front door — one question in, the engine's real router answers with its confidence and latency shown. Low confidence escalates honestly to Deep Research.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800">
+                        <button onclick="runSamplePrompt('What can you help me with today?', 'chat')" class="w-full bg-slate-800/80 hover:bg-amber-950/40 border border-slate-700 text-slate-300 hover:text-amber-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
+                            <span class="truncate">Try: “What can you help me with?”</span>
+                            <i class="fa-solid fa-play text-[10px] ml-2 text-amber-400"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Heritage & Theology Card -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-orange-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-scroll"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Heritage &amp; Theology Archive</h3>
+                        <p class="text-slate-400 text-sm mt-2">The Ethiopian canon and Ge'ez manuscripts, Islamic verification science and Golden Age scholarship, deep African history — every entry carries named primary sources, and contested claims carry their caveat.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800">
+                        <button onclick="runSamplePrompt('Who wrote the Book of Optics?', 'heritage')" class="w-full bg-slate-800/80 hover:bg-orange-950/40 border border-slate-700 text-slate-300 hover:text-orange-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
+                            <span class="truncate">Try: “Who wrote the Book of Optics?”</span>
+                            <i class="fa-solid fa-play text-[10px] ml-2 text-orange-400"></i>
                         </button>
                     </div>
                 </div>
@@ -694,7 +765,7 @@
                         <i class="fa-solid fa-circle-check"></i> Built & Verified
                     </div>
                     <h3 class="text-lg font-bold text-white">1. Core Engine</h3>
-                    <p class="text-xs text-slate-400 mt-2">Scam Shield (12 families), African History Archive (29 entries), and Everyday Services Pack (15 guides) complete in repo.</p>
+                    <p class="text-xs text-slate-400 mt-2">Scam Shield (12 families), African History Archive (29 entries), Everyday Services Pack (15 guides), and Heritage Archive (14 sourced entries) complete in repo.</p>
                 </div>
 
                 <div class="bg-obsidian-900 p-6 rounded-xl border border-amber-500/50 relative pulse-amber">
@@ -826,9 +897,11 @@
 
             const labelMap = {
                 'auto': 'MODE: AUTO-INTENT ROUTER',
+                'chat': 'MODE: ASK LUQI-AI (CHAT GATEWAY)',
                 'scam_shield': 'MODE: SCAM SHIELD DETECTOR',
                 'everyday_services': 'MODE: EVERYDAY SERVICES PACK',
                 'history': 'MODE: AFRICAN HISTORY ARCHIVE',
+                'heritage': 'MODE: HERITAGE & THEOLOGY ARCHIVE',
                 'deep_research': 'MODE: DEEP RESEARCH ENGINE',
                 'professor': 'MODE: THE PROFESSOR (ADAPTIVE TUTOR)',
                 'money_skills': 'MODE: MONEY SKILLS ENGINE'
@@ -965,7 +1038,7 @@
         async function loadMetrics() {
             const set = (id, v) => { document.getElementById(id).textContent = v; };
             const idx = document.getElementById('console-index-line');
-            let scams = null, hist = null, svc = null;
+            let scams = null, hist = null, svc = null, her = null;
             try {
                 const cat = await (await fetch(ENGINE_BASE + "/v1/finlit/scam-patterns")).json();
                 scams = cat.patterns.length; set('metric-scams', scams);
@@ -978,9 +1051,14 @@
                 const s = await (await fetch(ENGINE_BASE + "/v1/services")).json();
                 svc = s.entry_count; set('metric-services', svc);
             } catch (_) {}
+            try {
+                const hr = await (await fetch(ENGINE_BASE + "/v1/heritage")).json();
+                her = hr.entry_count;  /* present after the HERITAGE-1 redeploy */
+            } catch (_) {}
             if (idx && scams !== null && hist !== null && svc !== null) {
                 idx.textContent = "Indexed live: " + scams + " fraud families · "
-                    + svc + " official guides · " + hist + " history entries";
+                    + svc + " official guides · " + hist + " history entries"
+                    + (her !== null ? " · " + her + " heritage entries" : "");
             }
         }
 
@@ -993,10 +1071,22 @@
         function offlineCard(endpoint, err) {
             appendMessage('bot', null, `
                 <div class="space-y-2">
-                    <div class="text-xs font-mono font-bold text-red-400 uppercase"><i class="fa-solid fa-circle-xmark"></i> Engine offline — nothing simulated</div>
+                    <div class="text-xs font-mono font-bold text-red-400 uppercase"><i class="fa-solid fa-circle-xmark"></i> Engine not reachable — nothing simulated</div>
                     <p class="text-xs text-slate-300">I tried <span class="font-mono text-amber-400">${escapeHtml(endpoint)}</span> with your message. Error: <span class="font-mono">${escapeHtml(String(err && err.message || err))}</span>.</p>
-                    <p class="text-xs text-slate-400">The moment the engine is reachable, this exact message gets a real answer through this exact pipeline.</p>
+                    <p class="text-xs text-slate-400">The moment the engine is reachable, this exact message gets a real answer through this exact pipeline. Founder: use the <i class="fa-solid fa-gear"></i> engine control in the console header to point this page at the live deployment URL — it is stored only in your own browser.</p>
                 </div>`);
+        }
+        function toggleEngineSettings() {
+            const row = document.getElementById('engine-settings-row');
+            if (row) row.classList.toggle('hidden');
+        }
+        function saveEngineBase() {
+            const inp = document.getElementById('engine-base-input');
+            const v = (inp.value || '').trim().replace(/\/+$/, "");
+            if (!v) { localStorage.removeItem('luqi_engine'); }
+            else if (/^https:\/\/[^\s/$.?#].[^\s]*$/i.test(v)) { localStorage.setItem('luqi_engine', v); }
+            else { inp.classList.add('border-red-500'); return; }
+            location.reload();
         }
         function locator(c) {
             if (c.doi && /^10\.\d{4,9}\/\S+$/.test(c.doi)) return "https://doi.org/" + c.doi;
@@ -1074,6 +1164,45 @@
             h += `<p class="text-xs text-slate-200 leading-relaxed">${escapeHtml(d.response || "").replace(/\n/g, "<br>")}</p></div>`;
             appendMessage('bot', null, h);
         }
+        function renderChat(d) {
+            let h = `
+                <div class="space-y-3">
+                    <div class="flex items-center flex-wrap gap-2 border-b border-slate-700/60 pb-2 text-[10px] font-mono">
+                        <span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">Live engine response</span>
+                        <span class="bg-slate-700/60 text-slate-300 px-2 py-0.5 rounded">${escapeHtml(d.engine_used || "chat-gateway")}</span>
+                        <span class="bg-slate-700/60 text-slate-300 px-2 py-0.5 rounded">confidence ${Math.round((d.confidence || 0) * 1000) / 10}%</span>
+                        <span class="bg-slate-700/60 text-slate-300 px-2 py-0.5 rounded">${escapeHtml(String(d.latency_ms || 0))} ms</span>
+                    </div>`;
+            h += `<p class="text-xs text-slate-200 leading-relaxed">${escapeHtml(d.response || "").replace(/\n/g, "<br>")}</p>`;
+            if (d.escalation && d.escalation.available)
+                h += `<div class="p-2.5 bg-amber-950/30 border border-amber-800/40 rounded-lg text-xs text-amber-300">${escapeHtml(d.escalation.note || "Deep Research can take this further.")}</div>`;
+            if (d.pii_redacted) h += `<p class="text-[10px] font-mono text-slate-500">PII redacted before processing.</p>`;
+            h += "</div>";
+            appendMessage('bot', null, h);
+        }
+        function renderHeritage(d, query) {
+            if (d.status === "no_curated_match") {
+                appendMessage('bot', null, `<div class="space-y-2">
+                    <div class="text-xs font-mono font-bold text-amber-400 uppercase">No curated match — nothing fabricated</div>
+                    <p class="text-xs text-slate-300">${escapeHtml(d.honest_note || "No archive entry matches this query.")}</p>
+                    ${d.escalation && d.escalation.available ? `<p class="text-xs text-slate-400">Try <strong>Deep Research</strong> mode for sourced expansion beyond the archive.</p>` : ""}
+                </div>`);
+                return;
+            }
+            const hits = d.matches || [];
+            let h = `<div class="space-y-3"><div class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded inline-block">Live engine response · every entry carries named primary sources</div>`;
+            hits.forEach(e => {
+                h += `<div class="p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-xs">
+                        <span class="font-bold text-white">${escapeHtml(e.title)}</span>
+                        <span class="text-slate-500"> · ${escapeHtml(e.era || "")} · ${escapeHtml(e.region || "")}</span>
+                        <span class="block text-[10px] font-mono text-orange-400 mt-0.5">${escapeHtml((e.tradition || "").replace(/_/g, " "))}</span>
+                        <p class="text-slate-300 mt-1">${escapeHtml(e.summary)}</p>
+                        <p class="text-[10px] text-slate-500 mt-1 font-mono">Full sources: GET /v1/heritage/entries/${escapeHtml(e.id)}</p>
+                      </div>`;
+            });
+            if (d.disclaimer) h += `<p class="text-[11px] text-slate-500"><em>${escapeHtml(d.disclaimer)}</em></p>`;
+            appendMessage('bot', null, h + "</div>");
+        }
         function professorCard() {
             appendMessage('bot', null, `
                 <div class="space-y-2">
@@ -1088,9 +1217,11 @@
             const spin = thinking();
             const mode = currentMode;
             let endpoint, payload;
-            if (mode === 'scam_shield') { endpoint = "/v1/finlit/scam-check"; payload = { text: query }; }
+            if (mode === 'chat') { endpoint = "/v1/chat/completions"; payload = { prompt: query, mode: "auto" }; }
+            else if (mode === 'scam_shield') { endpoint = "/v1/finlit/scam-check"; payload = { text: query }; }
             else if (mode === 'everyday_services') { endpoint = "/v1/services/entries?q=" + encodeURIComponent(query); payload = null; }
             else if (mode === 'history') { endpoint = "/v1/history/entries?q=" + encodeURIComponent(query); payload = null; }
+            else if (mode === 'heritage') { endpoint = "/v1/heritage/query"; payload = { query: query }; }
             else if (mode === 'deep_research') { endpoint = "/v1/deep-research"; payload = { query: query, mode: "auto" }; }
             else if (mode === 'professor') { spin.remove(); professorCard(); return; }
             else { endpoint = "/v1/hybrid/process"; payload = { text: query }; }  /* auto + money_skills: the real server-side router decides */
@@ -1103,9 +1234,11 @@
                 spin.remove();
                 if (!res.ok) throw new Error("HTTP " + res.status + " — " + (await res.text()).slice(0, 200));
                 const data = await res.json();
-                if (mode === 'scam_shield') renderScam(data);
+                if (mode === 'chat') renderChat(data);
+                else if (mode === 'scam_shield') renderScam(data);
                 else if (mode === 'everyday_services') entryList(data, query, "services");
                 else if (mode === 'history') entryList(data, query, "history");
+                else if (mode === 'heritage') renderHeritage(data, query);
                 else if (mode === 'deep_research') renderResearch(data);
                 else renderHybrid(data);
             } catch (e) {
@@ -1115,6 +1248,8 @@
 
         /* init: honest status first, metrics only from a reachable engine */
         (async () => {
+            const eb = document.getElementById('engine-base-input');
+            if (eb) eb.value = ENGINE_BASE;
             const reachable = await updateEngineBadge();
             setInterval(updateEngineBadge, 60000);
             const wl = document.getElementById('welcome-line');
