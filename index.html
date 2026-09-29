@@ -68,6 +68,18 @@
         .pulse-amber {
             box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
         }
+        /* UI-9 honest-alive: typewriter caret + real-signal confidence gauge.
+           Every animated value comes from the engine response itself -
+           no decorative numbers, no fake telemetry. */
+        .typewriter-caret::after {
+            content: '▍';
+            color: #F59E0B;
+            animation: caret-blink 0.8s step-end infinite;
+        }
+        @keyframes caret-blink { 50% { opacity: 0; } }
+        .gauge-arc { transition: stroke-dashoffset 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        .telemetry-tick { animation: telemetry-fade 0.6s ease-out; }
+        @keyframes telemetry-fade { from { opacity: 0.2; } to { opacity: 1; } }
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #0B0F17; }
@@ -358,6 +370,15 @@
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </div>
+                    </div>
+
+                    <!-- Real Telemetry Strip (UI-9): every number is measured from
+                         actual engine traffic this session - never decorative. -->
+                    <div class="px-3.5 py-1.5 bg-obsidian-950/70 border-b border-slate-800/60 flex items-center gap-4 text-[10px] font-mono text-slate-500">
+                        <span id="tm-roundtrips" title="Real engine round-trips this session"><i class="fa-solid fa-arrow-right-arrow-left"></i> 0 exchanges</span>
+                        <span id="tm-latency" title="Latency of the last real engine response"><i class="fa-solid fa-stopwatch"></i> latency: —</span>
+                        <span id="tm-cache" title="Real cache reuse reported by the engine itself"><i class="fa-solid fa-bolt"></i> cache: —</span>
+                        <span id="tm-uptime" title="Time this console has been connected to a live engine"><i class="fa-solid fa-heart-pulse"></i> live: 0s</span>
                     </div>
 
                     <!-- Engine Connection Row (founder control; stored in this browser only) -->
@@ -1120,6 +1141,7 @@
 
             container.appendChild(msgDiv);
             container.scrollTop = container.scrollHeight;
+            return msgDiv;
         }
 
         /* ══ REAL ENGINE WIRING — BACKEND-FIRST law: this page renders and
@@ -1161,6 +1183,81 @@
             throw lastErr;
         }
 
+        /* ── UI-9: honest-alive layer ─────────────────────────────────────
+           Everything animated here is computed from REAL engine traffic.
+           No decorative numbers, no simulated satellites, no fake toasts. */
+        const TM = { exchanges: 0, lastLatency: null, connectedSince: null, upTick: null };
+
+        function tmSet(id, text) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.classList.remove('telemetry-tick'); void el.offsetWidth;
+            el.classList.add('telemetry-tick');
+            el.lastChild.textContent = ' ' + text;
+        }
+        function tmExchange(latencyMs) {
+            TM.exchanges++;
+            TM.lastLatency = latencyMs != null ? latencyMs : TM.lastLatency;
+            tmSet('tm-roundtrips', TM.exchanges + ' exchange' + (TM.exchanges === 1 ? '' : 's'));
+            tmSet('tm-latency', 'latency: ' + (TM.lastLatency != null ? TM.lastLatency + ' ms' : '—'));
+        }
+        function tmOnline(nowOnline, cacheStats) {
+            if (nowOnline && !TM.connectedSince) {
+                TM.connectedSince = Date.now();
+                clearInterval(TM.upTick);
+                TM.upTick = setInterval(() => {
+                    const s = Math.floor((Date.now() - TM.connectedSince) / 1000);
+                    tmSet('tm-uptime', 'live: ' + (s >= 60 ? Math.floor(s / 60) + 'm ' + (s % 60) + 's' : s + 's'));
+                }, 1000);
+            } else if (!nowOnline) {
+                TM.connectedSince = null; clearInterval(TM.upTick);
+                tmSet('tm-uptime', 'live: 0s');
+            }
+            if (cacheStats) {
+                const hits = (cacheStats.hits_exact || 0) + (cacheStats.hits_semantic || 0);
+                tmSet('tm-cache', 'cache: ' + hits + ' real reuse' + (hits === 1 ? '' : 's'));
+            }
+        }
+
+        /* Confidence gauge: SVG arc animated to the REAL confidence value
+           the engine returned. Colour: emerald = high, amber = middling,
+           red = low. No number is ever invented here. */
+        function confidenceGauge(conf) {
+            const pct = Math.round((conf || 0) * 100);
+            const r = 15.5, circ = 2 * Math.PI * r;
+            const off = circ * (1 - (conf || 0));
+            const col = pct >= 80 ? '#34D399' : pct >= 50 ? '#F59E0B' : '#F87171';
+            return `<span class="inline-flex items-center gap-1.5" title="Engine-reported confidence">
+                <svg width="26" height="26" viewBox="0 0 36 36" class="-rotate-90">
+                    <circle cx="18" cy="18" r="${r}" fill="none" stroke="#1F293D" stroke-width="3.5"/>
+                    <circle class="gauge-arc" cx="18" cy="18" r="${r}" fill="none" stroke="${col}" stroke-width="3.5"
+                        stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${off}"/>
+                </svg>
+                <span class="bg-slate-700/60 text-slate-300 px-2 py-0.5 rounded">confidence ${Math.round((conf || 0) * 1000) / 10}%</span>
+            </span>`;
+        }
+
+        /* Typewriter reveal: types the REAL response text character by
+           character, then swaps in the full rendered card. The words are
+           the engine's - only the reveal is theatrical. */
+        function typewriterThen(el, text, finalHtml) {
+            const p = document.createElement('p');
+            p.className = 'text-xs text-slate-200 leading-relaxed typewriter-caret whitespace-pre-wrap';
+            const host = el.querySelector('.tw-host');
+            if (!host) { el.querySelector('.space-y-2, .space-y-3')?.appendChild(p); }
+            else host.appendChild(p);
+            let i = 0;
+            const step = Math.max(2, Math.ceil(text.length / 160));
+            (function tick() {
+                i = Math.min(text.length, i + step);
+                p.textContent = text.slice(0, i);
+                const stream = document.getElementById('console-stream');
+                if (stream) stream.scrollTop = stream.scrollHeight;
+                if (i < text.length) { setTimeout(tick, 18); }
+                else { p.classList.remove('typewriter-caret'); if (finalHtml) el.querySelector('.space-y-2, .space-y-3').innerHTML = finalHtml; }
+            })();
+        }
+
         /* Honest engine status — bound to GET /v1/hybrid/health, re-polled 60s.
            States: offline / paused (kill switch) / Production (Live) /
            deterministic router / older build (redeploy pending). */
@@ -1181,11 +1278,13 @@
                 if (badge) badge.textContent = txt;
                 status.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i> ' + txt;
                 if (heroPill) heroPill.textContent = "Engine Live · Launching First in South Africa";
+                tmOnline(true, d.cache);   /* UI-9: real uptime + real cache counters */
                 return true;
             } catch (e) {
                 if (badge) badge.textContent = "engine: offline";
                 status.innerHTML = '<i class="fa-solid fa-circle-xmark text-red-400"></i> engine offline — nothing is simulated';
                 if (heroPill) heroPill.textContent = "Engine not reachable — console shows honest offline states";
+                tmOnline(false, null);
                 return false;
             }
         }
@@ -1312,14 +1411,17 @@
         function renderHybrid(d) {
             let h = `
                 <div class="space-y-3">
-                    <div class="flex items-center gap-2 border-b border-slate-700/60 pb-2 text-[10px] font-mono">
+                    <div class="flex items-center flex-wrap gap-2 border-b border-slate-700/60 pb-2 text-[10px] font-mono">
                         <span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">Live engine response</span>
+                        ${d.cached ? `<span class="bg-teal-500/20 text-teal-300 px-2 py-0.5 rounded" title="Reused deterministic answer, similarity ${(d.cache_similarity || 1)}">cache reuse · ${Math.round((d.cache_similarity || 1) * 100)}% match</span>` : ""}
                         <span class="bg-slate-700/60 text-slate-300 px-2 py-0.5 rounded">${escapeHtml(d.engine_used || "hybrid")}</span>
-                        <span class="bg-slate-700/60 text-slate-300 px-2 py-0.5 rounded">confidence ${Math.round((d.confidence || 0) * 1000) / 10}%</span>
+                        ${confidenceGauge(d.confidence)}
                     </div>`;
             if (d.boundary) h += `<div class="p-2.5 bg-amber-950/30 border border-amber-800/40 rounded-lg text-xs text-amber-300">${escapeHtml(d.boundary)}</div>`;
             h += `<p class="text-xs text-slate-200 leading-relaxed">${escapeHtml(d.response || "").replace(/\n/g, "<br>")}</p></div>`;
-            appendMessage('bot', null, h);
+            /* UI-9: type the REAL words, then settle into the final card */
+            const msg = appendMessage('bot', null, `<div class="space-y-3"><div class="tw-host"></div></div>`);
+            typewriterThen(msg, d.response || "", h);
         }
         function renderChat(d) {
             let h = `
@@ -1327,7 +1429,7 @@
                     <div class="flex items-center flex-wrap gap-2 border-b border-slate-700/60 pb-2 text-[10px] font-mono">
                         <span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">Live engine response</span>
                         <span class="bg-slate-700/60 text-slate-300 px-2 py-0.5 rounded">${escapeHtml(d.engine_used || "chat-gateway")}</span>
-                        <span class="bg-slate-700/60 text-slate-300 px-2 py-0.5 rounded">confidence ${Math.round((d.confidence || 0) * 1000) / 10}%</span>
+                        ${confidenceGauge(d.confidence)}
                         <span class="bg-slate-700/60 text-slate-300 px-2 py-0.5 rounded">${escapeHtml(String(d.latency_ms || 0))} ms</span>
                     </div>`;
             h += `<p class="text-xs text-slate-200 leading-relaxed">${escapeHtml(d.response || "").replace(/\n/g, "<br>")}</p>`;
@@ -1335,7 +1437,9 @@
                 h += `<div class="p-2.5 bg-amber-950/30 border border-amber-800/40 rounded-lg text-xs text-amber-300">${escapeHtml(d.escalation.note || "Deep Research can take this further.")}</div>`;
             if (d.pii_redacted) h += `<p class="text-[10px] font-mono text-slate-500">PII redacted before processing.</p>`;
             h += "</div>";
-            appendMessage('bot', null, h);
+            /* UI-9: type the REAL words, then settle into the final card */
+            const msg = appendMessage('bot', null, `<div class="space-y-3"><div class="tw-host"></div></div>`);
+            typewriterThen(msg, d.response || "", h);
         }
         function renderHeritage(d, query) {
             if (d.status === "no_curated_match") {
@@ -1382,6 +1486,7 @@
             else if (mode === 'deep_research') { endpoint = "/v1/deep-research"; payload = { query: query, mode: "auto" }; }
             else if (mode === 'professor') { spin.remove(); professorCard(); return; }
             else { endpoint = "/v1/hybrid/process"; payload = { text: query }; }  /* auto + money_skills: the real server-side router decides */
+            const t0 = performance.now();
             try {
                 const res = payload === null
                     ? await fetchWithRetry(ENGINE_BASE + endpoint, {}, 2, spin)
@@ -1389,6 +1494,8 @@
                 spin.remove();
                 if (!res.ok) throw new Error("HTTP " + res.status + " — " + (await res.text()).slice(0, 200));
                 const data = await res.json();
+                /* UI-9: measured round-trip latency — real, not decorative */
+                tmExchange(data.latency_ms != null ? data.latency_ms : Math.round(performance.now() - t0));
                 if (mode === 'chat') renderChat(data);
                 else if (mode === 'scam_shield') renderScam(data);
                 else if (mode === 'everyday_services') entryList(data, query, "services");
