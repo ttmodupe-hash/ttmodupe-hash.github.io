@@ -1658,8 +1658,11 @@
         })();
 
         // Helper
+        /* UI-14: type-safe — engine contracts send numbers too (citation year,
+           risk_score, pattern weight). A bare .replace on an int crashed the
+           whole card render ("text.replace is not a function"). Cast first. */
         function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
 
         // Waitlist Modal Functions
