@@ -94,6 +94,7 @@
         <i class="fa-solid fa-earth-africa animate-pulse"></i>
         <span>BORN IN SOUTH AFRICA · BUILT FOR AFRICA · READY FOR THE WORLD</span>
         <span id="ver-badge" class="hidden md:inline-block bg-slate-950 text-amber-400 text-[10px] px-2 py-0.5 rounded-full ml-2">engine: checking…</span>
+        <span id="outbox-badge" onclick="flushOutbox(true)" title="Questions saved in this browser while the engine was unreachable — they send themselves when it is back. Click to retry now." class="hidden bg-slate-950 text-amber-400 text-[10px] px-2 py-0.5 rounded-full ml-2 cursor-pointer hover:text-amber-300"></span>
     </div>
 
     <!-- Header Navigation -->
@@ -1387,6 +1388,7 @@
                 status.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i> ' + txt;
                 if (heroPill) heroPill.textContent = "Engine Live · Launching First in South Africa";
                 tmOnline(true, d.cache);   /* UI-9: real uptime + real cache counters */
+                flushOutbox(false);        /* UI-16: engine is back — replay anything queued offline */
                 return true;
             } catch (e) {
                 if (badge) badge.textContent = "engine: offline";
@@ -1446,6 +1448,59 @@
                     <p class="text-xs text-slate-300">I tried <span class="font-mono text-amber-400">${escapeHtml(endpoint)}</span> with your message. Error: <span class="font-mono">${escapeHtml(String(err && err.message || err))}</span>.</p>
                     <p class="text-xs text-slate-400">The moment the engine is reachable, this exact message gets a real answer through this exact pipeline. Founder: use the <i class="fa-solid fa-gear"></i> engine control in the console header to point this page at the live deployment URL — it is stored only in your own browser.</p>
                 </div>`);
+        }
+
+        /* UI-16 (2026-09-30): honest offline outbox — the one real idea harvested
+           from the "Pan-African Engine 2040" paste (its edge-queue concept). When
+           the engine is unreachable the question is saved ONLY in this browser
+           (localStorage, same pattern as luqi_engine), the card says exactly that,
+           and the 15-second health poller replays it through the exact same real
+           pipeline the moment the engine answers again. No simulated answer, no
+           fabricated confidence — the reply arrives with its full provenance row. */
+        const OUTBOX_KEY = "luqi_outbox_v1";
+        let outboxFlushing = false;
+        function outboxRead() {
+            try { const a = JSON.parse(localStorage.getItem(OUTBOX_KEY) || "[]"); return Array.isArray(a) ? a : []; }
+            catch (_) { return []; }
+        }
+        function outboxWrite(a) { try { localStorage.setItem(OUTBOX_KEY, JSON.stringify(a)); } catch (_) {} outboxBadge(); }
+        function outboxAdd(query, mode) { const a = outboxRead(); a.push({ q: String(query), m: String(mode), t: Date.now() }); outboxWrite(a); }
+        function outboxBadge() {
+            const b = document.getElementById('outbox-badge'); if (!b) return;
+            const n = outboxRead().length;
+            if (n > 0) { b.textContent = n + " queued offline"; b.classList.remove('hidden'); }
+            else b.classList.add('hidden');
+        }
+        /* queueable = engine down / network down / timeout. A 4xx (e.g. 404 on an
+           older engine build) is NOT queued — replaying it would fail forever. */
+        function queueableError(e) { return !/^HTTP 4\d\d/.test(String(e && e.message || e)); }
+        function queuedCard(query, mode, err) {
+            appendMessage('bot', null, `
+                <div class="space-y-2">
+                    <div class="text-xs font-mono font-bold text-amber-400 uppercase"><i class="fa-solid fa-box-archive"></i> Saved offline — sends itself when the engine is back</div>
+                    <p class="text-xs text-slate-300">The engine is unreachable (<span class="font-mono">${escapeHtml(String(err && err.message || err))}</span>), so your question was saved <strong>in this browser only</strong> — nothing left your device and nothing was simulated:</p>
+                    <p class="text-xs text-slate-400 font-mono border-l-2 border-amber-500 pl-2">${escapeHtml(query)}</p>
+                    <p class="text-xs text-slate-400">The health check runs every 15 seconds while offline. The moment the engine answers, this exact question is replayed in mode <span class="font-mono text-amber-400">${escapeHtml(mode)}</span> through the exact same real pipeline, and the answer arrives with its full provenance row. Clearing browser storage discards it.</p>
+                </div>`);
+        }
+        async function flushOutbox(manual) {
+            if (outboxFlushing) return;
+            if (!outboxRead().length) { outboxBadge(); return; }
+            outboxFlushing = true;
+            const prevMode = currentMode;
+            try {
+                let item;
+                while ((item = outboxRead()[0])) {
+                    outboxWrite(outboxRead().slice(1));
+                    appendMessage('bot', null, `
+                        <div class="text-xs font-mono text-emerald-400"><i class="fa-solid fa-rotate"></i> Engine reachable — replaying your offline question${manual ? " (manual retry)" : ""}: <span class="text-slate-300">${escapeHtml(item.q)}</span></div>`);
+                    const before = outboxRead().length;
+                    currentMode = item.m;
+                    await processQueryEngine(item.q);
+                    /* a failure re-queued the question — engine is still down, stop */
+                    if (outboxRead().length > before) break;
+                }
+            } finally { currentMode = prevMode; outboxFlushing = false; outboxBadge(); }
         }
         /* Honest "not deployed yet" card — a 404 means the engine build is
            older than the console, NOT that the engine is down. Same pattern
@@ -1660,7 +1715,16 @@
                 else if (mode === 'deep_research') renderResearch(data);
                 else renderHybrid(data, query);
             } catch (e) {
-                spin.remove(); offlineCard(ENGINE_BASE + endpoint, e);
+                spin.remove();
+                if (queueableError(e)) {
+                    outboxAdd(query, mode);
+                    /* mid-flush the replay banner is already shown — give the raw
+                       error card; a user-typed question gets the honest queue card */
+                    if (outboxFlushing) offlineCard(ENGINE_BASE + endpoint, e);
+                    else queuedCard(query, mode, e);
+                } else {
+                    offlineCard(ENGINE_BASE + endpoint, e);
+                }
             }
         }
 
@@ -1685,6 +1749,7 @@
             if (eb) eb.value = ENGINE_BASE;
             const reachable = await updateEngineBadge();
             scheduleHealthPoll(reachable);
+            outboxBadge();   /* UI-16: restore the queued-offline pill from a previous session */
             const wl = document.getElementById('welcome-line');
             if (wl) wl.textContent = reachable
                 ? "Connected to the live engine at " + ENGINE_BASE + " — every answer below comes from the real engine, with sources or an honest UNVERIFIED label."
