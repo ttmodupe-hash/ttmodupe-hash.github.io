@@ -313,6 +313,19 @@
                         <i class="fa-solid fa-chevron-right text-xs text-slate-600"></i>
                     </button>
 
+                    <button onclick="setEngineMode('iks')" id="mode-btn-iks" class="engine-mode-btn text-left p-3.5 rounded-xl border border-slate-800/80 bg-obsidian-900/60 hover:bg-slate-800/50 transition-all flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-bold">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-white">Medicine Archive (IKS)</div>
+                                <div class="text-xs text-slate-400">Sourced indigenous plant registry</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-600"></i>
+                    </button>
+
                     <button onclick="setEngineMode('deep_research')" id="mode-btn-deep_research" class="engine-mode-btn text-left p-3.5 rounded-xl border border-slate-800/80 bg-obsidian-900/60 hover:bg-slate-800/50 transition-all flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">
@@ -444,7 +457,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <span class="text-xs font-mono text-amber-500 uppercase tracking-widest font-semibold">Engine Capabilities</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Nine modes, one rule: an answer you can check</h2>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Ten modes, one rule: an answer you can check</h2>
                 <p class="text-slate-400 mt-3 text-sm sm:text-base">Every capability returns sources, citations or an honest “UNVERIFIED” label — never a confident guess dressed up as fact.</p>
             </div>
 
@@ -581,6 +594,23 @@
                         <button onclick="runSamplePrompt('What can you help me with today?', 'chat')" class="w-full bg-slate-800/80 hover:bg-amber-950/40 border border-slate-700 text-slate-300 hover:text-amber-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
                             <span class="truncate">Try: “What can you help me with?”</span>
                             <i class="fa-solid fa-play text-[10px] ml-2 text-amber-400"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Indigenous Medicine Archive (IKS) Card -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Indigenous Medicine Archive</h3>
+                        <p class="text-slate-400 text-sm mt-2">A sourced registry of Southern African traditional plant knowledge — documented usage, honest research status, cautions, and the benefit-sharing record. Catalogue, never prescriptions.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800">
+                        <button onclick="runSamplePrompt('Tell me about lengana (Artemisia afra)', 'iks')" class="w-full bg-slate-800/80 hover:bg-emerald-950/40 border border-slate-700 text-slate-300 hover:text-emerald-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
+                            <span class="truncate">Try: “What is lengana used for?”</span>
+                            <i class="fa-solid fa-play text-[10px] ml-2 text-emerald-400"></i>
                         </button>
                     </div>
                 </div>
@@ -911,7 +941,7 @@
                         <i class="fa-solid fa-circle-check"></i> Built & Verified
                     </div>
                     <h3 class="text-lg font-bold text-white">1. Core Engine</h3>
-                    <p class="text-xs text-slate-400 mt-2">Scam Shield (12 families), African History Archive (29 entries), Everyday Services Pack (15 guides), and Heritage Archive (14 sourced entries) complete in repo.</p>
+                    <p class="text-xs text-slate-400 mt-2">Scam Shield (12 families), African History Archive (29 entries), Everyday Services Pack (15 guides), Heritage Archive (14 sourced entries), and IKS Medicine Archive (6 sourced entries) complete in repo.</p>
                 </div>
 
                 <div class="bg-obsidian-900 p-6 rounded-xl border border-amber-500/50 relative pulse-amber">
@@ -1048,6 +1078,7 @@
                 'everyday_services': 'MODE: EVERYDAY SERVICES PACK',
                 'history': 'MODE: AFRICAN HISTORY ARCHIVE',
                 'heritage': 'MODE: HERITAGE & THEOLOGY ARCHIVE',
+                'iks': 'MODE: INDIGENOUS MEDICINE ARCHIVE',
                 'deep_research': 'MODE: DEEP RESEARCH ENGINE',
                 'professor': 'MODE: THE PROFESSOR (ADAPTIVE TUTOR)',
                 'money_skills': 'MODE: MONEY SKILLS ENGINE'
@@ -1332,6 +1363,17 @@
                     <p class="text-xs text-slate-400">The moment the engine is reachable, this exact message gets a real answer through this exact pipeline. Founder: use the <i class="fa-solid fa-gear"></i> engine control in the console header to point this page at the live deployment URL — it is stored only in your own browser.</p>
                 </div>`);
         }
+        /* Honest "not deployed yet" card — a 404 means the engine build is
+           older than the console, NOT that the engine is down. Same pattern
+           as the Professor card: say what is true, never simulate. */
+        function activatesCard(endpoint) {
+            appendMessage('bot', null, `
+                <div class="space-y-2">
+                    <div class="text-xs font-mono font-bold text-emerald-400 uppercase"><i class="fa-solid fa-leaf"></i> Archive committed — activates on the next engine redeploy</div>
+                    <p class="text-xs text-slate-300">The Indigenous Medicine Archive (IKS-1) is built, tested and committed in the engine repo — six sourced entries with cautions and scam-alerts. The live engine is still the previous build; when Railway redeploys, <span class="font-mono text-amber-400">${escapeHtml(endpoint)}</span> answers here directly.</p>
+                    <p class="text-xs text-slate-400">Until then, Scam Shield, Everyday Services, African History and the other live modes answer right now.</p>
+                </div>`);
+        }
         function toggleEngineSettings() {
             const row = document.getElementById('engine-settings-row');
             if (row) row.classList.toggle('hidden');
@@ -1383,11 +1425,13 @@
             hits.forEach(e => {
                 h += `<div class="p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-xs">
                         <span class="font-bold text-white">${escapeHtml(e.title)}</span>
-                        <span class="text-slate-500"> · ${escapeHtml(e.period || e.agency || "")}</span>
+                        <span class="text-slate-500"> · ${escapeHtml(e.period || e.agency || e.latin_name || "")}</span>
                         <p class="text-slate-300 mt-1">${escapeHtml(e.summary)}</p>
-                        <p class="text-[10px] text-slate-500 mt-1 font-mono">Full sources: GET /v1/${kind === "history" ? "history" : "services"}/entries/${escapeHtml(e.id)}</p>
+                        <p class="text-[10px] text-slate-500 mt-1 font-mono">Full sources: GET /v1/${kind}/entries/${escapeHtml(e.id)}</p>
                       </div>`;
             });
+            if (kind === "iks" && d.disclaimer)
+                h += `<div class="p-2.5 bg-amber-950/30 border border-amber-800/40 rounded-lg text-[11px] text-amber-300"><strong>Catalogue, not clinic:</strong> ${escapeHtml(d.disclaimer)}</div>`;
             appendMessage('bot', null, h + "</div>");
         }
         function renderResearch(d) {
@@ -1483,6 +1527,7 @@
             else if (mode === 'everyday_services') { endpoint = "/v1/services/entries?q=" + encodeURIComponent(query); payload = null; }
             else if (mode === 'history') { endpoint = "/v1/history/entries?q=" + encodeURIComponent(query); payload = null; }
             else if (mode === 'heritage') { endpoint = "/v1/heritage/query"; payload = { query: query }; }
+            else if (mode === 'iks') { endpoint = "/v1/iks/entries?q=" + encodeURIComponent(query); payload = null; }
             else if (mode === 'deep_research') { endpoint = "/v1/deep-research"; payload = { query: query, mode: "auto" }; }
             else if (mode === 'professor') { spin.remove(); professorCard(); return; }
             else { endpoint = "/v1/hybrid/process"; payload = { text: query }; }  /* auto + money_skills: the real server-side router decides */
@@ -1492,7 +1537,14 @@
                     ? await fetchWithRetry(ENGINE_BASE + endpoint, {}, 2, spin)
                     : await fetchWithRetry(ENGINE_BASE + endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }, 2, spin);
                 spin.remove();
-                if (!res.ok) throw new Error("HTTP " + res.status + " — " + (await res.text()).slice(0, 200));
+                if (!res.ok && res.status !== 404) throw new Error("HTTP " + res.status + " — " + (await res.text()).slice(0, 200));
+                /* UI-9/UI-10: every completed round-trip is counted, even a 404
+                   (the request really happened — the strip counts traffic, not success) */
+                if (res.status === 404) {
+                    tmExchange(Math.round(performance.now() - t0));
+                    if (mode === 'iks') { activatesCard(endpoint); return; }
+                    throw new Error("HTTP 404 — route not on this engine build");
+                }
                 const data = await res.json();
                 /* UI-9: measured round-trip latency — real, not decorative */
                 tmExchange(data.latency_ms != null ? data.latency_ms : Math.round(performance.now() - t0));
@@ -1501,6 +1553,7 @@
                 else if (mode === 'everyday_services') entryList(data, query, "services");
                 else if (mode === 'history') entryList(data, query, "history");
                 else if (mode === 'heritage') renderHeritage(data, query);
+                else if (mode === 'iks') entryList(data, query, "iks");
                 else if (mode === 'deep_research') renderResearch(data);
                 else renderHybrid(data);
             } catch (e) {
