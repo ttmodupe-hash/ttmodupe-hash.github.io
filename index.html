@@ -1325,7 +1325,7 @@
         async function loadMetrics() {
             const set = (id, v) => { document.getElementById(id).textContent = v; };
             const idx = document.getElementById('console-index-line');
-            let scams = null, hist = null, svc = null, her = null;
+            let scams = null, hist = null, svc = null, her = null, iks = null;
             try {
                 const cat = await (await fetch(ENGINE_BASE + "/v1/finlit/scam-patterns")).json();
                 scams = cat.patterns.length; set('metric-scams', scams);
@@ -1342,10 +1342,17 @@
                 const hr = await (await fetch(ENGINE_BASE + "/v1/heritage")).json();
                 her = hr.entry_count;  /* present after the HERITAGE-1 redeploy */
             } catch (_) {}
+            try {
+                const ik = await (await fetch(ENGINE_BASE + "/v1/iks")).json();
+                iks = Array.isArray(ik.entries) ? ik.entries.length : null;  /* present after the IKS-1 redeploy */
+            } catch (_) {}
+            /* UI-12: a 404 body still parses as JSON, so entry_count comes back
+               undefined — typeof guard, never "undefined heritage entries". */
             if (idx && scams !== null && hist !== null && svc !== null) {
                 idx.textContent = "Indexed live: " + scams + " fraud families · "
                     + svc + " official guides · " + hist + " history entries"
-                    + (her !== null ? " · " + her + " heritage entries" : "");
+                    + (typeof her === "number" ? " · " + her + " heritage entries" : "")
+                    + (typeof iks === "number" ? " · " + iks + " IKS entries" : "");
             }
         }
 
@@ -1452,7 +1459,7 @@
             });
             appendMessage('bot', null, h + "</div>");
         }
-        function renderHybrid(d) {
+        function renderHybrid(d, query) {
             let h = `
                 <div class="space-y-3">
                     <div class="flex items-center flex-wrap gap-2 border-b border-slate-700/60 pb-2 text-[10px] font-mono">
@@ -1462,12 +1469,22 @@
                         ${confidenceGauge(d.confidence)}
                     </div>`;
             if (d.boundary) h += `<div class="p-2.5 bg-amber-950/30 border border-amber-800/40 rounded-lg text-xs text-amber-300">${escapeHtml(d.boundary)}</div>`;
-            h += `<p class="text-xs text-slate-200 leading-relaxed">${escapeHtml(d.response || "").replace(/\n/g, "<br>")}</p></div>`;
+            h += `<p class="text-xs text-slate-200 leading-relaxed">${escapeHtml(d.response || "").replace(/\n/g, "<br>")}</p>`;
+            /* UI-12: the confidence gate is honest — but not a dead end.
+               Offer a REAL next step on the live engine (Deep Research),
+               plus the honest redeploy status. Never canned text. */
+            const gated = (typeof d.confidence === "number" && d.confidence < 0.25)
+                || /Confidence Gate/i.test(d.engine_used || "");
+            if (gated && query) h += `<div class="p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-[11px] text-slate-400 space-y-2">
+                    <p>The full mission chat brain (CHAT-1) is committed and activates on the next engine redeploy. Until then I can research this properly — real sources, no guessing:</p>
+                    <button data-research-query="${escapeHtml(query).replace(/"/g, "&quot;")}" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3 py-1.5 rounded-lg transition-all text-xs">Research this with Deep Research</button>
+                </div>`;
+            h += "</div>";
             /* UI-9: type the REAL words, then settle into the final card */
             const msg = appendMessage('bot', null, `<div class="space-y-3"><div class="tw-host"></div></div>`);
             typewriterThen(msg, d.response || "", h);
         }
-        function renderChat(d) {
+        function renderChat(d, query) {
             let h = `
                 <div class="space-y-3">
                     <div class="flex items-center flex-wrap gap-2 border-b border-slate-700/60 pb-2 text-[10px] font-mono">
@@ -1480,6 +1497,13 @@
             if (d.escalation && d.escalation.available)
                 h += `<div class="p-2.5 bg-amber-950/30 border border-amber-800/40 rounded-lg text-xs text-amber-300">${escapeHtml(d.escalation.note || "Deep Research can take this further.")}</div>`;
             if (d.pii_redacted) h += `<p class="text-[10px] font-mono text-slate-500">PII redacted before processing.</p>`;
+            /* UI-12: same honest escalation path as renderHybrid */
+            const gatedChat = (typeof d.confidence === "number" && d.confidence < 0.25)
+                || /Confidence Gate/i.test(d.engine_used || "");
+            if (gatedChat && query) h += `<div class="p-2.5 bg-slate-900 border border-slate-800 rounded-lg text-[11px] text-slate-400 space-y-2">
+                    <p>The full mission chat brain (CHAT-1) is committed and activates on the next engine redeploy. Until then I can research this properly — real sources, no guessing:</p>
+                    <button data-research-query="${escapeHtml(query).replace(/"/g, "&quot;")}" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3 py-1.5 rounded-lg transition-all text-xs">Research this with Deep Research</button>
+                </div>`;
             h += "</div>";
             /* UI-9: type the REAL words, then settle into the final card */
             const msg = appendMessage('bot', null, `<div class="space-y-3"><div class="tw-host"></div></div>`);
@@ -1548,14 +1572,14 @@
                 const data = await res.json();
                 /* UI-9: measured round-trip latency — real, not decorative */
                 tmExchange(data.latency_ms != null ? data.latency_ms : Math.round(performance.now() - t0));
-                if (mode === 'chat') renderChat(data);
+                if (mode === 'chat') renderChat(data, query);
                 else if (mode === 'scam_shield') renderScam(data);
                 else if (mode === 'everyday_services') entryList(data, query, "services");
                 else if (mode === 'history') entryList(data, query, "history");
                 else if (mode === 'heritage') renderHeritage(data, query);
                 else if (mode === 'iks') entryList(data, query, "iks");
                 else if (mode === 'deep_research') renderResearch(data);
-                else renderHybrid(data);
+                else renderHybrid(data, query);
             } catch (e) {
                 spin.remove(); offlineCard(ENGINE_BASE + endpoint, e);
             }
@@ -1566,6 +1590,15 @@
         function scheduleHealthPoll(wasOnline) {
             setTimeout(async () => { scheduleHealthPoll(await updateEngineBadge()); }, wasOnline ? 60000 : 15000);
         }
+
+        /* UI-12: delegated handler for escalation buttons — the query travels
+           in a data attribute (fully escaped), so any phrasing is safe and
+           no inline JS quoting can break. Clicking fires a REAL Deep Research
+           round-trip through the normal submit pipeline. */
+        document.addEventListener('click', (e) => {
+            const b = e.target.closest('[data-research-query]');
+            if (b) runSamplePrompt(b.getAttribute('data-research-query'), 'deep_research');
+        });
 
         /* init: honest status first, metrics only from a reachable engine */
         (async () => {
