@@ -145,12 +145,12 @@
             </div>
 
             <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight sm:leading-none">
-                The next generation of AI is African — <br class="hidden sm:inline"/>
-                <span class="gold-gradient-text">and it’s ready to talk to you.</span>
+                Empowering African enterprises &amp; communities with <br class="hidden sm:inline"/>
+                <span class="gold-gradient-text">native, high-integrity AI.</span>
             </h1>
 
             <p class="mt-6 text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                Africa is not catching up — with Luqi-ai as the backbone of African excellence, we are building at the level of the world’s advanced economies, for our own realities. Start a conversation right now: check a suspicious offer before you send a cent, navigate SASSA, SARS, UIF and NSFAS in plain language, explore African history with real sources, or learn anything with a tutor that adapts to you.
+                One platform for prosperity and protection: consumer scam defense, SASSA · SARS · UIF · NSFAS in plain language, research with resolvable citations, an adaptive tutor, and sourced African history, heritage and indigenous-knowledge archives — built on African soil, for African realities, honest by engineering.
             </p>
 
             <!-- Hero Action Buttons -->
@@ -196,6 +196,16 @@
                     <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                 </a>
             </div>
+        </div>
+    </section>
+
+    <!-- Mission & Ethics Banner (UI-13): enterprise framing — every claim verifiable -->
+    <section class="border-b border-slate-800 bg-obsidian-900/60">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                <span class="font-bold text-amber-400">Our mission:</span> Luqi-ai exists to solve real African economic, civic and knowledge challenges — protecting consumers, opening statutory services to everyone, and preserving African knowledge — serving businesses and citizens with dignity.
+            </p>
+            <p class="text-xs text-slate-500 mt-3 font-mono">No fabricated statistics · No invented testimonials · Sources shown, or an honest UNVERIFIED label</p>
         </div>
     </section>
 
@@ -268,7 +278,7 @@
                             </div>
                             <div>
                                 <div class="text-sm font-bold text-white">Scam Shield</div>
-                                <div class="text-xs text-slate-400">12 Fraud families catalogue</div>
+                                <div class="text-xs text-slate-400">Consumer protection · 12 fraud families</div>
                             </div>
                         </div>
                         <i class="fa-solid fa-chevron-right text-xs text-slate-600"></i>
@@ -457,24 +467,49 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <span class="text-xs font-mono text-amber-500 uppercase tracking-widest font-semibold">Engine Capabilities</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Ten modes, one rule: an answer you can check</h2>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Four pillars, ten modes, one rule: an answer you can check</h2>
                 <p class="text-slate-400 mt-3 text-sm sm:text-base">Every capability returns sources, citations or an honest “UNVERIFIED” label — never a confident guess dressed up as fact.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Auto-Intent Router Card -->
-                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
+                <!-- UI-13 Pillar 1 -->
+                <div class="col-span-full ">
+                    <h3 class="text-base font-extrabold text-white flex items-center gap-2.5">
+                        <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs font-mono flex-shrink-0">1</span>
+                        Civic &amp; SME Prosperity
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-1 ml-9">Consumer financial protection, statutory services in plain language, and money skills — the financial-integrity core.</p>
+                </div>
+<!-- Everyday Services Card -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/40 transition-all group flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-file-contract"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white">Auto-Intent Router</h3>
-                        <p class="text-slate-400 text-sm mt-2">Just type. The engine's trained router reads your intent and sends it to the right specialist engine — with its confidence shown on every answer.</p>
+                        <h3 class="text-xl font-bold text-white">Everyday Services</h3>
+                        <p class="text-slate-400 text-sm mt-2">Plain-language guides to the SRD grant, SASSA pensions, SARS tax season, UIF claims, and NSFAS — steps, official channels, scam warnings.</p>
                     </div>
                     <div class="mt-6 pt-4 border-t border-slate-800">
-                        <button onclick="runSamplePrompt('What is a TFSA and is it right for me?', 'auto')" class="w-full bg-slate-800/80 hover:bg-amber-950/40 border border-slate-700 text-slate-300 hover:text-amber-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
-                            <span class="truncate">Try: “What is a TFSA — right for me?”</span>
-                            <i class="fa-solid fa-play text-[10px] ml-2 text-amber-400"></i>
+                        <button onclick="runSamplePrompt('How do I appeal a declined SRD grant?', 'everyday_services')" class="w-full bg-slate-800/80 hover:bg-emerald-950/40 border border-slate-700 text-slate-300 hover:text-emerald-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
+                            <span class="truncate">Try: “How do I appeal a declined SRD grant?”</span>
+                            <i class="fa-solid fa-play text-[10px] ml-2 text-emerald-400"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Money Skills Card -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-teal-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Money Skills</h3>
+                        <p class="text-slate-400 text-sm mt-2">Budgeting, saving, debt, TFSAs, and investing basics — clear guidance with real numbers and a disclaimer on every answer. Education, not financial advice.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800">
+                        <button onclick="runSamplePrompt('Explain compound interest simply with numbers', 'money_skills')" class="w-full bg-slate-800/80 hover:bg-teal-950/40 border border-slate-700 text-slate-300 hover:text-teal-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
+                            <span class="truncate">Try: “Explain compound interest simply”</span>
+                            <i class="fa-solid fa-play text-[10px] ml-2 text-teal-400"></i>
                         </button>
                     </div>
                 </div>
@@ -496,24 +531,16 @@
                     </div>
                 </div>
 
-                <!-- Everyday Services Card -->
-                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/40 transition-all group flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-file-contract"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Everyday Services</h3>
-                        <p class="text-slate-400 text-sm mt-2">Plain-language guides to the SRD grant, SASSA pensions, SARS tax season, UIF claims, and NSFAS — steps, official channels, scam warnings.</p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-slate-800">
-                        <button onclick="runSamplePrompt('How do I appeal a declined SRD grant?', 'everyday_services')" class="w-full bg-slate-800/80 hover:bg-emerald-950/40 border border-slate-700 text-slate-300 hover:text-emerald-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
-                            <span class="truncate">Try: “How do I appeal a declined SRD grant?”</span>
-                            <i class="fa-solid fa-play text-[10px] ml-2 text-emerald-400"></i>
-                        </button>
-                    </div>
+                
+                <!-- UI-13 Pillar 2 -->
+                <div class="col-span-full mt-6">
+                    <h3 class="text-base font-extrabold text-white flex items-center gap-2.5">
+                        <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs font-mono flex-shrink-0">2</span>
+                        African Knowledge Systems
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-1 ml-9">Sourced history, heritage &amp; theology, and the indigenous medicine archive — inheritance, not content.</p>
                 </div>
-
-                <!-- African History Card -->
+<!-- African History Card -->
                 <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
                     <div>
                         <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
@@ -530,7 +557,49 @@
                     </div>
                 </div>
 
-                <!-- Deep Research Card -->
+                <!-- Heritage & Theology Card -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-orange-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-scroll"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Heritage &amp; Theology Archive</h3>
+                        <p class="text-slate-400 text-sm mt-2">The Ethiopian canon and Ge'ez manuscripts, Islamic verification science and Golden Age scholarship, deep African history — every entry carries named primary sources, and contested claims carry their caveat.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800">
+                        <button onclick="runSamplePrompt('Who wrote the Book of Optics?', 'heritage')" class="w-full bg-slate-800/80 hover:bg-orange-950/40 border border-slate-700 text-slate-300 hover:text-orange-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
+                            <span class="truncate">Try: “Who wrote the Book of Optics?”</span>
+                            <i class="fa-solid fa-play text-[10px] ml-2 text-orange-400"></i>
+                        </button>
+                    </div>
+                </div>
+<!-- Indigenous Medicine Archive (IKS) Card -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/40 transition-all group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Indigenous Medicine Archive</h3>
+                        <p class="text-slate-400 text-sm mt-2">A sourced registry of Southern African traditional plant knowledge — documented usage, honest research status, cautions, and the benefit-sharing record. Catalogue, never prescriptions.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800">
+                        <button onclick="runSamplePrompt('Tell me about lengana (Artemisia afra)', 'iks')" class="w-full bg-slate-800/80 hover:bg-emerald-950/40 border border-slate-700 text-slate-300 hover:text-emerald-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
+                            <span class="truncate">Try: “What is lengana used for?”</span>
+                            <i class="fa-solid fa-play text-[10px] ml-2 text-emerald-400"></i>
+                        </button>
+                    </div>
+                </div>
+
+                
+                <!-- UI-13 Pillar 3 -->
+                <div class="col-span-full mt-6">
+                    <h3 class="text-base font-extrabold text-white flex items-center gap-2.5">
+                        <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs font-mono flex-shrink-0">3</span>
+                        Research &amp; Adaptive Learning
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-1 ml-9">Multi-source investigation with receipts, and a tutor that meets you at your level.</p>
+                </div>
+<!-- Deep Research Card -->
                 <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
                     <div>
                         <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
@@ -564,19 +633,28 @@
                     </div>
                 </div>
 
-                <!-- Money Skills Card -->
-                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-teal-500/40 transition-all group flex flex-col justify-between">
+                
+                <!-- UI-13 Pillar 4 -->
+                <div class="col-span-full mt-6">
+                    <h3 class="text-base font-extrabold text-white flex items-center gap-2.5">
+                        <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs font-mono flex-shrink-0">4</span>
+                        Core Intelligence
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-1 ml-9">The live router and chat gateway every mode runs through — confidence shown on every answer.</p>
+                </div>
+<!-- Auto-Intent Router Card -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-amber-500/40 transition-all group flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-wallet"></i>
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white">Money Skills</h3>
-                        <p class="text-slate-400 text-sm mt-2">Budgeting, saving, debt, TFSAs, and investing basics — clear guidance with real numbers and a disclaimer on every answer. Education, not financial advice.</p>
+                        <h3 class="text-xl font-bold text-white">Auto-Intent Router</h3>
+                        <p class="text-slate-400 text-sm mt-2">Just type. The engine's trained router reads your intent and sends it to the right specialist engine — with its confidence shown on every answer.</p>
                     </div>
                     <div class="mt-6 pt-4 border-t border-slate-800">
-                        <button onclick="runSamplePrompt('Explain compound interest simply with numbers', 'money_skills')" class="w-full bg-slate-800/80 hover:bg-teal-950/40 border border-slate-700 text-slate-300 hover:text-teal-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
-                            <span class="truncate">Try: “Explain compound interest simply”</span>
-                            <i class="fa-solid fa-play text-[10px] ml-2 text-teal-400"></i>
+                        <button onclick="runSamplePrompt('What is a TFSA and is it right for me?', 'auto')" class="w-full bg-slate-800/80 hover:bg-amber-950/40 border border-slate-700 text-slate-300 hover:text-amber-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
+                            <span class="truncate">Try: “What is a TFSA — right for me?”</span>
+                            <i class="fa-solid fa-play text-[10px] ml-2 text-amber-400"></i>
                         </button>
                     </div>
                 </div>
@@ -594,40 +672,6 @@
                         <button onclick="runSamplePrompt('What can you help me with today?', 'chat')" class="w-full bg-slate-800/80 hover:bg-amber-950/40 border border-slate-700 text-slate-300 hover:text-amber-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
                             <span class="truncate">Try: “What can you help me with?”</span>
                             <i class="fa-solid fa-play text-[10px] ml-2 text-amber-400"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Indigenous Medicine Archive (IKS) Card -->
-                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-emerald-500/40 transition-all group flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-leaf"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Indigenous Medicine Archive</h3>
-                        <p class="text-slate-400 text-sm mt-2">A sourced registry of Southern African traditional plant knowledge — documented usage, honest research status, cautions, and the benefit-sharing record. Catalogue, never prescriptions.</p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-slate-800">
-                        <button onclick="runSamplePrompt('Tell me about lengana (Artemisia afra)', 'iks')" class="w-full bg-slate-800/80 hover:bg-emerald-950/40 border border-slate-700 text-slate-300 hover:text-emerald-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
-                            <span class="truncate">Try: “What is lengana used for?”</span>
-                            <i class="fa-solid fa-play text-[10px] ml-2 text-emerald-400"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Heritage & Theology Card -->
-                <div class="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-orange-500/40 transition-all group flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-scroll"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Heritage &amp; Theology Archive</h3>
-                        <p class="text-slate-400 text-sm mt-2">The Ethiopian canon and Ge'ez manuscripts, Islamic verification science and Golden Age scholarship, deep African history — every entry carries named primary sources, and contested claims carry their caveat.</p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-slate-800">
-                        <button onclick="runSamplePrompt('Who wrote the Book of Optics?', 'heritage')" class="w-full bg-slate-800/80 hover:bg-orange-950/40 border border-slate-700 text-slate-300 hover:text-orange-300 p-2.5 rounded-lg text-xs font-mono text-left transition-colors flex items-center justify-between">
-                            <span class="truncate">Try: “Who wrote the Book of Optics?”</span>
-                            <i class="fa-solid fa-play text-[10px] ml-2 text-orange-400"></i>
                         </button>
                     </div>
                 </div>
