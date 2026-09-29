@@ -999,10 +999,42 @@
 
         /* ══ REAL ENGINE WIRING — BACKEND-FIRST law: this page renders and
            POSTs only. All intelligence lives server-side. No local knowledge
-           bases, no canned answers, no simulated processing. ═══════════ */
+           bases, no canned answers, no simulated processing. Transient network
+           drops get bounded retry with backoff; failure states stay honest. ══ */
         const ENGINE_BASE = (new URLSearchParams(location.search).get("engine")
             || localStorage.getItem("luqi_engine")
             || "https://engine.luqi-ai.com").replace(/\/+$/, "");
+
+        /* Resilience: bounded retry with exponential backoff for TRANSIENT
+           failures only (network drop, 502/503/504). A 4xx is a real answer
+           from the server — never retried. After the last attempt the honest
+           offline card shows; nothing is ever simulated. */
+        async function fetchWithRetry(url, opts, retries, spin) {
+            let lastErr;
+            for (let attempt = 0; attempt <= retries; attempt++) {
+                const ctl = new AbortController();
+                const t = setTimeout(() => ctl.abort(), 90000);
+                try {
+                    const res = await fetch(url, Object.assign({ signal: ctl.signal }, opts));
+                    clearTimeout(t);
+                    if (res.status >= 500 && attempt < retries) {
+                        lastErr = new Error("HTTP " + res.status);
+                    } else {
+                        return res;  /* success, or final-attempt failure handled by caller */
+                    }
+                } catch (e) {
+                    clearTimeout(t);
+                    lastErr = e;
+                    if (attempt === retries) break;
+                }
+                if (spin && spin.querySelector) {
+                    const s = spin.querySelector("span");
+                    if (s) s.innerHTML = '<i class="fa-solid fa-spinner animate-spin text-amber-400"></i> Connection dropped — retrying (attempt ' + (attempt + 2) + ' of ' + (retries + 1) + ')…';
+                }
+                await new Promise(r => setTimeout(r, 800 * Math.pow(2, attempt)));
+            }
+            throw lastErr;
+        }
 
         /* Honest engine status — bound to GET /v1/hybrid/health, re-polled 60s.
            States: offline / paused (kill switch) / Production (Live) /
@@ -1226,11 +1258,9 @@
             else if (mode === 'professor') { spin.remove(); professorCard(); return; }
             else { endpoint = "/v1/hybrid/process"; payload = { text: query }; }  /* auto + money_skills: the real server-side router decides */
             try {
-                const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 90000);
                 const res = payload === null
-                    ? await fetch(ENGINE_BASE + endpoint, { signal: ctl.signal })
-                    : await fetch(ENGINE_BASE + endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload), signal: ctl.signal });
-                clearTimeout(t);
+                    ? await fetchWithRetry(ENGINE_BASE + endpoint, {}, 2, spin)
+                    : await fetchWithRetry(ENGINE_BASE + endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }, 2, spin);
                 spin.remove();
                 if (!res.ok) throw new Error("HTTP " + res.status + " — " + (await res.text()).slice(0, 200));
                 const data = await res.json();
@@ -1246,12 +1276,18 @@
             }
         }
 
+        /* Adaptive health polling: 15s while offline so recovery shows fast,
+           60s while live. Self-scheduling — never stacks timers. */
+        function scheduleHealthPoll(wasOnline) {
+            setTimeout(async () => { scheduleHealthPoll(await updateEngineBadge()); }, wasOnline ? 60000 : 15000);
+        }
+
         /* init: honest status first, metrics only from a reachable engine */
         (async () => {
             const eb = document.getElementById('engine-base-input');
             if (eb) eb.value = ENGINE_BASE;
             const reachable = await updateEngineBadge();
-            setInterval(updateEngineBadge, 60000);
+            scheduleHealthPoll(reachable);
             const wl = document.getElementById('welcome-line');
             if (wl) wl.textContent = reachable
                 ? "Connected to the live engine at " + ENGINE_BASE + " — every answer below comes from the real engine, with sources or an honest UNVERIFIED label."
