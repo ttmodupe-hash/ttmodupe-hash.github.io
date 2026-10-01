@@ -217,8 +217,10 @@
         </div>
     </section>
 
-    <!-- MEDIA-1: promo film + welcome voice (honest labels: AI-generated media, synthetic placeholder voice) -->
-    <section id="media" class="border-b border-slate-800 bg-obsidian-950">
+    <!-- MEDIA-1: promo film + welcome voice (honest labels: AI-generated media, synthetic placeholder voice)
+         MEDIA-2: section auto-hides while the asset files are absent from assets/ (user upload gate);
+         the HEAD check below reveals it automatically the moment both files are deployed. -->
+    <section id="media" class="border-b border-slate-800 bg-obsidian-950" hidden>
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <h2 class="text-xl sm:text-2xl font-bold text-slate-100 text-center mb-6">See &amp; hear Luqi-ai</h2>
             <div class="rounded-xl overflow-hidden border border-slate-800 bg-black shadow-lg shadow-black/40">
@@ -237,6 +239,17 @@
             </div>
         </div>
     </section>
+    <script>
+        /* MEDIA-2: reveal the media section only when BOTH asset files are actually
+           deployed — honest presence: no empty players, no broken embeds. */
+        (async () => {
+            try {
+                const v = await fetch("assets/luqi_ai_promo.mp4", { method: "HEAD" });
+                const a = await fetch("assets/luqi_ai_welcome_voiceover.mp3", { method: "HEAD" });
+                if (v.ok && a.ok) document.getElementById("media").hidden = false;
+            } catch (_) { /* assets not deployed yet — section stays hidden */ }
+        })();
+    </script>
 
     <!-- Interactive AI Engine Section -->
     <section id="engine" class="py-12 bg-obsidian-950 border-b border-slate-800">
